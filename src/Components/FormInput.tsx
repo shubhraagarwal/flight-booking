@@ -1,4 +1,19 @@
+import { trpc } from "@/utils/trpc";
+import { useEffect, useState } from "react";
+import { useDebounce } from "usehooks-ts";
+
 function FormInput() {
+  const [searchQuery, setSearchQuery] = useState("");
+  const debouncedSearch = useDebounce(searchQuery, 500);
+  const { refetch, data } = trpc.airports.search.useQuery(
+    { keyword: debouncedSearch },
+    { enabled: debouncedSearch.trim() !== "" }
+  );
+
+  useEffect(() => {
+    refetch();
+  }, [debouncedSearch]);
+
   return (
     <section className="flex h-screen w-[99vw] flex-col justify-center bg-[url('/images/flightbg.png')] bg-cover bg-center">
       <div className="ml-36 mb-10 max-w-[40ch]">
@@ -10,7 +25,14 @@ function FormInput() {
       <div className="flex w-[99vw] justify-center">
         <div className="flex h-[200px] w-[1200px] items-center justify-center rounded-md bg-[#041950]">
           <div className="flex h-[50px] w-[1100px] items-center rounded-md bg-white">
-            <select
+            <input
+              type="text"
+              placeholder="From where?"
+              className="align-center broder-solid h-12 w-[242px] rounded-l-md border-r-2 border-black p-2 outline-none"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+            />
+            {/* <select
               name="From where?"
               id=""
               className="align-center broder-solid h-12 w-[242px] rounded-l-md border-r-2 border-black p-2"
@@ -18,7 +40,7 @@ function FormInput() {
               <option value="" disabled selected>
                 From Where?
               </option>
-            </select>
+            </select> */}
 
             <select
               name="From where?"
