@@ -67,6 +67,18 @@ function FormInput() {
           </div>
         </div>
       </div>
+      <div>
+        <h1>Searched Locations:</h1>
+        <br />
+        <div className="grid grid-cols-1 gap-2 md:grid-cols-2">
+          {data &&
+            data.map((location) => (
+              <div key={location} className="col-span-1 text-white">
+                <h2>{location}</h2>
+              </div>
+            ))}
+        </div>
+      </div>
     </section>
   );
 }
