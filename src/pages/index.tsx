@@ -1,5 +1,5 @@
-import FormInput from "../Components/FormInput";
-import Features from "../Components/Features";
+import FormInput from "../components/FormInput";
+import Features from "../components/Features";
 
 export default function HomePage() {
   return (
@@ -16,8 +16,8 @@ export default function HomePage() {
         </div>
       </nav>
 
-      <FormInput/>
-      <Features/>
+      <FormInput />
+      <Features />
     </main>
   );
 }
