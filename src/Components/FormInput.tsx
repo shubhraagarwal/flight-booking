@@ -1,6 +1,6 @@
 function FormInput() {
   return (
-    <section className="flex h-screen w-[99vw] flex-col justify-center bg-[url('./images/flightbg.png')] bg-cover bg-center">
+    <section className="flex h-screen w-[99vw] flex-col justify-center bg-[url('/images/flightbg.png')] bg-cover bg-center">
       <div className="ml-36 mb-10 max-w-[40ch]">
         <h1 className="font-['ubuntu'] text-5xl leading-relaxed text-white">
           Let the journey begin....
