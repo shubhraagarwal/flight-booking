@@ -7,6 +7,7 @@ import NextNProgress from "nextjs-progressbar";
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 import daisyuiColors from "daisyui/src/colors/themes";
+import { MantineProvider } from "@mantine/core";
 
 const MyApp: AppType = ({ Component, pageProps }) => {
   return (
@@ -15,7 +16,17 @@ const MyApp: AppType = ({ Component, pageProps }) => {
         options={{ showSpinner: false }}
         color={daisyuiColors["[data-theme=light]"].primary}
       />
-      <Component {...pageProps} />
+
+      <MantineProvider
+        withGlobalStyles
+        withNormalizeCSS
+        theme={{
+          /** Put your mantine theme override here */
+          colorScheme: "light",
+        }}
+      >
+        <Component {...pageProps} />
+      </MantineProvider>
     </>
   );
 };
