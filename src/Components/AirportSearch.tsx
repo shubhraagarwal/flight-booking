@@ -12,7 +12,7 @@ export default function AirportSearch({
   const debouncedSearch = useDebounce(searchQuery, 500);
   const { isFetching, data } = trpc.airports.search.useQuery(
     { keyword: debouncedSearch },
-    { enabled: !!debouncedSearch }
+    { enabled: Boolean(debouncedSearch) }
   );
 
   return (
