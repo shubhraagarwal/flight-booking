@@ -1,8 +1,7 @@
-import { trpc } from "@/utils/trpc";
-import { ChangeEvent, useEffect, useState } from "react";
-import { useDebounce } from "usehooks-ts";
+import { ChangeEvent, useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import AirportSearch from "./AirportSearch";
 
 function FormInput() {
   const [departureDate, setDepartureDate] = useState<Date>();
@@ -12,12 +11,6 @@ function FormInput() {
   const [adultCount, setAdultCount] = useState(1);
   const [childrenCount, setChilrenCount] = useState(0);
 
-  const [searchQuery, setSearchQuery] = useState("");
-  const debouncedSearch = useDebounce(searchQuery, 500);
-  const { refetch, data } = trpc.airports.search.useQuery(
-    { keyword: debouncedSearch },
-    { enabled: debouncedSearch.trim() !== "" }
-  );
   function tripType(e: ChangeEvent<HTMLInputElement>) {
     if (e.target.value === "roundTripType") {
       setRoundTrip(true);
@@ -25,10 +18,6 @@ function FormInput() {
       setRoundTrip(false);
     }
   }
-
-  useEffect(() => {
-    refetch();
-  }, [debouncedSearch]);
 
   return (
     <section className="flex h-screen w-screen flex-col justify-center bg-[url('/images/flightbg.png')] bg-cover bg-center">
@@ -41,32 +30,8 @@ function FormInput() {
       <div className="flex w-[99vw] justify-center">
         <div className="flex h-[200px] w-[1200px] items-center justify-center rounded-md bg-[#041950]">
           <div className="flex h-[50px] w-[1100px] items-center rounded-md bg-white">
-            <input
-              type="text"
-              placeholder="From where?"
-              className="align-center broder-solid h-12 w-[242px] rounded-l-md border-r-2 border-black p-2 outline-none"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-            />
-            {/* <select
-              name="From where?"
-              id=""
-              className="align-center broder-solid h-12 w-[242px] rounded-l-md border-r-2 border-black p-2"
-            >
-              <option value="" disabled selected>
-                From Where?
-              </option>
-            </select> */}
-
-            <select
-              name="From where?"
-              id=""
-              className="align-center broder-solid h-12 w-[242px] rounded-l-md border-r-2 border-black p-2"
-            >
-              <option value="" disabled selected>
-                From Where?
-              </option>
-            </select>
+            <AirportSearch placeholder="From Where?" />
+            <AirportSearch placeholder="To Where?" />
 
             <div className="flex w-[242px] flex-row justify-evenly">
               <DatePicker
@@ -210,18 +175,6 @@ function FormInput() {
               Search
             </button>
           </div>
-        </div>
-      </div>
-      <div>
-        <h1>Searched Locations:</h1>
-        <br />
-        <div className="grid grid-cols-1 gap-2 md:grid-cols-2">
-          {data &&
-            data.map((location) => (
-              <div key={location} className="col-span-1 text-white">
-                <h2>{location}</h2>
-              </div>
-            ))}
         </div>
       </div>
     </section>
