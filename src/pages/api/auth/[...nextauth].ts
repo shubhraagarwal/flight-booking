@@ -3,9 +3,11 @@ import NextAuth, { NextAuthOptions } from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 import { prisma } from "@/server/db/client";
 import bcrypt from "bcryptjs";
+import { env } from "@/env/server.mjs";
 
 export const authOptions: NextAuthOptions = {
   adapter: PrismaAdapter(prisma),
+  secret: env.JWT_SECRET,
   providers: [
     Credentials({
       name: "Credentials",
@@ -15,20 +17,26 @@ export const authOptions: NextAuthOptions = {
       },
       async authorize(credentials) {
         if (!credentials) return null;
-
         const { email, password } = credentials;
+        console.log(password);
         const user = await prisma.user.findUnique({
           where: { email },
         });
         if (!user) return null;
+        console.log("found user");
 
         const isPasswordValid = await bcrypt.compare(password, user.password);
         if (!isPasswordValid) return null;
+        console.log("password valid");
 
         return user;
       },
     }),
   ],
+  session: { strategy: "jwt" },
+  pages: {
+    signIn: "/auth/sign-in",
+  },
 };
 
 export default NextAuth(authOptions);

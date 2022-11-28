@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
 
 interface SignUpFields {
+  name: string;
   email: string;
   password: string;
   passwordConfirm: string;
@@ -24,6 +25,7 @@ export default function SignUpPage() {
 
   return (
     <form onSubmit={form.handleSubmit(onSubmit)}>
+      <input type="text" placeholder="name" {...form.register("name")} />
       <input type="email" placeholder="email" {...form.register("email")} />
       <input
         type="password"

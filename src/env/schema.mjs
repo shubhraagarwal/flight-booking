@@ -11,6 +11,7 @@ export const serverSchema = z.object({
   AMADEUS_URL: z.string().url(),
   AMADEUS_KEY: z.string(),
   AMADEUS_SECRET: z.string(),
+  JWT_SECRET: z.string(),
 });
 
 /**

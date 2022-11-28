@@ -12,10 +12,11 @@ export const userRouter = router({
         email: z.string().email(),
         password: z.string().min(1),
         passwordConfirm: z.string().min(1),
+        name: z.string().min(1),
       })
     )
     .mutation(async ({ input }) => {
-      const { email, password, passwordConfirm } = input;
+      const { email, password, passwordConfirm, name } = input;
       if (password !== passwordConfirm) {
         throw new TRPCError({
           message: "Passwords do not match",
@@ -26,7 +27,7 @@ export const userRouter = router({
 
       try {
         const user = await prisma.user.create({
-          data: { email, password: hashedPassword },
+          data: { email, name, password: hashedPassword },
         });
         return user;
       } catch (error) {
