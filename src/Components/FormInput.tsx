@@ -121,7 +121,7 @@ function FormInput() {
                 }}
               />
               <DatePicker
-              minDate={!departureDate ? startDate : departureDate}
+                minDate={!departureDate ? startDate : departureDate}
                 className={
                   !roundTrip
                     ? "hidden"
@@ -152,7 +152,9 @@ function FormInput() {
                 <div className="relative flex w-[200px] flex-row justify-around">
                   <button
                     onClick={() => {
-                      adultCount > 1 ? setAdultCount(adultCount - 1) : "";
+                      adultCount > 0
+                        ? setAdultCount((count) => count - 1)
+                        : null;
                     }}
                   >
                     <svg
@@ -169,7 +171,7 @@ function FormInput() {
                   <p>Adult</p>
                   <button
                     onClick={() => {
-                      setAdultCount(adultCount + 1);
+                      setAdultCount((count) => count + 1);
                     }}
                   >
                     <svg
@@ -188,7 +190,9 @@ function FormInput() {
                 <div className="relative flex w-[200px] flex-row justify-around">
                   <button
                     onClick={() => {
-                      setChilrenCount(childrenCount - 1);
+                      childrenCount > 0
+                        ? setChilrenCount((count) => count - 1)
+                        : null;
                     }}
                   >
                     <svg
@@ -207,7 +211,7 @@ function FormInput() {
 
                   <button
                     onClick={() => {
-                      setChilrenCount(childrenCount + 1);
+                      setChilrenCount((count) => count + 1);
                     }}
                   >
                     {" "}
