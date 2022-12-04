@@ -44,7 +44,7 @@ function payment() {
           <AccountCreation/>
         </section>
 
-        <footer className="-ml-10 mt-10">
+        <footer className="-ml-10 mt-20">
           <Footer/>
         </footer>
       </main>
