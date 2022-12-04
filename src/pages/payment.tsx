@@ -1,27 +1,26 @@
 import FlightsCart from "@/components/FlightsCart";
 import Navbar from "@/components/Navbar";
-import LuggageInfo from "@/components/PassengerDetails/LuggageInfo";
-import PassengerInfoForm from "@/components/PassengerDetails/PassengerInfoForm";
-import Footer from "../components/Footer";
+import PaymentMethods from "@/components/PaymentGateway/PaymentMethods";
+import AccountCreation from "@/components/PaymentGateway/AccountCreation";
+import Footer from "@/components/Footer";
 
-function passengerInfo() {
+function payment() {
   return (
     <>
       <Navbar />
 
-      <main className="mx-10 my-16">
+      <main className="mx-10">
         <section className="flex flex-row items-center justify-between">
           <section className="flex flex-col gap-4">
             <div className="flex flex-col gap-2">
-              <h1 className="font-semibold text-[#007DFE]">Passenger information</h1>
+              <h1 className="font-semibold text-[#007DFE]">Payment method</h1>
               <p className="max-w-prose">
-                Enter the required information for each traveler and be sure
-                that it exactly matches the government-issued ID presented at
-                the airport.
+                Select a payment method below. Tripma processes your payment
+                securely with end-to-end encryption.
               </p>
             </div>
             <div>
-              <PassengerInfoForm />
+              <PaymentMethods/>
             </div>
           </section>
           <section>
@@ -34,31 +33,23 @@ function passengerInfo() {
               </div>
               <div>
                 <button className="rounded-md bg-[#007CFF] p-4 text-white">
-                  Select seats
+                  Confirm & Pay
                 </button>
               </div>
             </div>
           </section>
         </section>
 
-        <section>
-          <LuggageInfo />
+        <section className="mt-10">
+          <AccountCreation/>
         </section>
 
-        <div className="mb-10 flex flex-row gap-4">
-          <button className="rounded-md border-2 p-4 text-black">
-            Save and close
-          </button>
-          <button className="rounded-md bg-[#007CFF] p-4 text-white">
-            Select seats
-          </button>
-        </div>
+        <footer className="-ml-10 mt-10">
+          <Footer/>
+        </footer>
       </main>
-      <footer>
-        <Footer />
-      </footer>
     </>
   );
 }
 
-export default passengerInfo;
+export default payment;
