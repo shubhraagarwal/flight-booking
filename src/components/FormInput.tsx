@@ -2,14 +2,14 @@ import { ChangeEvent, useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import AirportSearch from "./AirportSearch";
-
 function FormInput() {
   const [departureDate, setDepartureDate] = useState<Date>();
   const [returnDate, setReturnDate] = useState<Date>();
   const [roundTrip, setRoundTrip] = useState<boolean>();
-  const [showPassengerCountModal, setShowPassengerCountModal] = useState(false);
-  const [adultCount, setAdultCount] = useState(1);
-  const [childrenCount, setChilrenCount] = useState(0);
+  const [showPassengerCountModal, setShowPassengerCountModal] =
+    useState<boolean>(false);
+  const [adultCount, setAdultCount] = useState<number>(1);
+  const [childrenCount, setChilrenCount] = useState<number>(0);
 
   function tripType(e: ChangeEvent<HTMLInputElement>) {
     if (e.target.value === "roundTripType") {
@@ -18,6 +18,27 @@ function FormInput() {
       setRoundTrip(false);
     }
   }
+
+  const startDate = new Date(
+    new Date().getFullYear(),
+    new Date().getMonth(),
+    new Date().getDate()
+  );
+
+  const months = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
 
   return (
     <section className="flex h-screen w-screen flex-col justify-center bg-[url('/images/flightbg.png')] bg-cover bg-center">
@@ -33,44 +54,78 @@ function FormInput() {
             <AirportSearch placeholder="From Where?" />
             <AirportSearch placeholder="To Where?" />
 
-            <div className="flex w-[242px] flex-row justify-evenly">
+            <div className="flex w-[242px]">
               <DatePicker
-                className="w-[110px] border-r-2 p-2 focus:outline-0"
+                dateFormat="dd/MM/yyyy"
+                className={
+                  !roundTrip
+                    ? "w-[240px] border-r-2 p-2 focus:outline-0"
+                    : "w-[135px] border-r-2 p-2 focus:outline-0"
+                }
+                minDate={startDate}
                 placeholderText="Departure date"
                 selected={departureDate}
                 onChange={(date) => setDepartureDate(date || new Date())}
-                renderCustomHeader={() => {
+                renderCustomHeader={({
+                  date,
+                  decreaseMonth,
+                  increaseMonth,
+                  prevMonthButtonDisabled,
+                  nextMonthButtonDisabled,
+                }) => {
                   return (
-                    <div className="flex flex-row justify-evenly">
-                      <label htmlFor="">
-                        <input
-                          type="radio"
-                          name="trip-type"
-                          id=""
-                          value={"roundTripType"}
-                          onChange={tripType}
-                        />{" "}
-                        Round Trip
-                      </label>
-                      <label htmlFor="">
-                        <input
-                          type="radio"
-                          name="trip-type"
-                          id=""
-                          value={"oneWayTripType"}
-                          onChange={tripType}
-                        />{" "}
-                        One Way
-                      </label>
+                    <div className="flex flex-col gap-2 p-[8px] font-[Ubuntu] text-sm">
+                      <div className="flex flex-row items-center justify-evenly">
+                        <label htmlFor="">
+                          <input
+                            type="radio"
+                            name="trip-type"
+                            id=""
+                            value={"roundTripType"}
+                            onChange={tripType}
+                          />{" "}
+                          Round Trip
+                        </label>
+                        <label htmlFor="">
+                          <input
+                            type="radio"
+                            name="trip-type"
+                            id=""
+                            value={"oneWayTripType"}
+                            onChange={tripType}
+                          />{" "}
+                          One Way
+                        </label>
+                      </div>
+
+                      <div className="flex flex-row items-center justify-around text-base">
+                        <button
+                          onClick={decreaseMonth}
+                          disabled={prevMonthButtonDisabled}
+                        >
+                          {"<"}
+                        </button>
+                        <div className="flex flex-row gap-4">
+                          <p className="font-bold">{months[date.getMonth()]}</p>
+                          <p className="font-bold">{date.getFullYear()}</p>
+                        </div>
+                        <button
+                          onClick={increaseMonth}
+                          disabled={nextMonthButtonDisabled}
+                        >
+                          {">"}
+                        </button>
+                      </div>
                     </div>
                   );
                 }}
               />
               <DatePicker
+                minDate={!departureDate ? startDate : departureDate}
                 className={
                   !roundTrip
                     ? "hidden"
-                    : "w-[110px] border-r-2 p-2 focus:outline-0"
+                    : "w-[135px] border-r-2 p-2 focus:outline-0"
                 }
                 placeholderText="Return date"
                 selected={returnDate}
@@ -97,7 +152,9 @@ function FormInput() {
                 <div className="relative flex w-[200px] flex-row justify-around">
                   <button
                     onClick={() => {
-                      adultCount > 1 ? setAdultCount(adultCount - 1) : "";
+                      adultCount > 0
+                        ? setAdultCount((count) => count - 1)
+                        : null;
                     }}
                   >
                     <svg
@@ -114,7 +171,7 @@ function FormInput() {
                   <p>Adult</p>
                   <button
                     onClick={() => {
-                      setAdultCount(adultCount + 1);
+                      setAdultCount((count) => count + 1);
                     }}
                   >
                     <svg
@@ -133,7 +190,9 @@ function FormInput() {
                 <div className="relative flex w-[200px] flex-row justify-around">
                   <button
                     onClick={() => {
-                      setChilrenCount(childrenCount - 1);
+                      childrenCount > 0
+                        ? setChilrenCount((count) => count - 1)
+                        : null;
                     }}
                   >
                     <svg
@@ -152,7 +211,7 @@ function FormInput() {
 
                   <button
                     onClick={() => {
-                      setChilrenCount(childrenCount + 1);
+                      setChilrenCount((count) => count + 1);
                     }}
                   >
                     {" "}
@@ -171,7 +230,7 @@ function FormInput() {
               </div>
             </div>
 
-            <button className="align-center h-12 w-[240px] rounded-r-md bg-[#007CFF] p-2 text-white">
+            <button className="align-center mr-[1px] h-12 w-[240px] rounded-r-md bg-[#007CFF] p-2 text-white">
               Search
             </button>
           </div>
