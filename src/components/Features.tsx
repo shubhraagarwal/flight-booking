@@ -69,7 +69,7 @@ function Features() {
       </div>
 
       <div className="flex h-screen items-center justify-evenly">
-        <img src="./images/featuresHero.png" alt="" />
+        <img src="./images/girlFlightSVG.png" alt="" />
       </div>
     </section>
   );
