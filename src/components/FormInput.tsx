@@ -147,6 +147,7 @@ function FormInput() {
                 }}
               />
               <DatePicker
+                dateFormat="dd/MM/yyyy"
                 minDate={!departureDate ? startDate : departureDate}
                 className={
                   !roundTrip
