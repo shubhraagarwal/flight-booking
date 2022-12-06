@@ -1,15 +1,32 @@
+// http://localhost:3000/flights?from=BOM+-+MUMBAI&to=PNY+-+PONDICHERRY&departureDate=Sat+Dec+24+2022+00%3A00%3A00+GMT%2B0530+%28India+Standard+Time%29&returnDate=&roundTrip=undefined
+import { useRouter } from "next/router";
 import { ChangeEvent, useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import AirportSearch from "./AirportSearch";
+
 function FormInput() {
+  const router = useRouter();
+  const [fromLocation, setFromLocation] = useState("");
+  const [toLocation, setToLocation] = useState("");
   const [departureDate, setDepartureDate] = useState<Date>();
   const [returnDate, setReturnDate] = useState<Date>();
-  const [roundTrip, setRoundTrip] = useState<boolean>();
+  const [roundTrip, setRoundTrip] = useState(false);
   const [showPassengerCountModal, setShowPassengerCountModal] =
     useState<boolean>(false);
   const [adultCount, setAdultCount] = useState<number>(1);
   const [childrenCount, setChilrenCount] = useState<number>(0);
+
+  function handleFlightsNavigation() {
+    const query = {
+      from: fromLocation,
+      to: toLocation,
+      departureDate: departureDate?.toString(),
+      returnDate: returnDate?.toString(),
+      roundTrip: String(roundTrip),
+    };
+    router.push({ pathname: "/flights", query: query });
+  }
 
   function tripType(e: ChangeEvent<HTMLInputElement>) {
     if (e.target.value === "roundTripType") {
@@ -51,8 +68,14 @@ function FormInput() {
       <div className="flex w-[99vw] justify-center">
         <div className="flex h-[200px] w-[1200px] items-center justify-center rounded-md bg-[#041950]">
           <div className="flex h-[50px] w-[1100px] items-center rounded-md bg-white">
-            <AirportSearch placeholder="From Where?" />
-            <AirportSearch placeholder="To Where?" />
+            <AirportSearch
+              placeholder="From Where?"
+              setLocation={setFromLocation}
+            />
+            <AirportSearch
+              placeholder="To Where?"
+              setLocation={setToLocation}
+            />
 
             <div className="flex w-[242px]">
               <DatePicker
@@ -230,7 +253,10 @@ function FormInput() {
               </div>
             </div>
 
-            <button className="align-center mr-[1px] h-12 w-[240px] rounded-r-md bg-[#007CFF] p-2 text-white">
+            <button
+              className="align-center mr-[1px] h-12 w-[240px] rounded-r-md bg-[#007CFF] p-2 text-white"
+              onClick={handleFlightsNavigation}
+            >
               Search
             </button>
           </div>
