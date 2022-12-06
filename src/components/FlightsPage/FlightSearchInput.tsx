@@ -11,17 +11,23 @@ function FlightSearchInput({
 }) {
   const [fromLocation, setFromLocation] = useState("");
   const [toLocation, setToLocation] = useState("");
-  const [departureDate, setDepartureDate] = useState<Date>();
-  const [returnDate, setReturnDate] = useState<Date>();
-  const [roundTrip, setRoundTrip] = useState<boolean>(true);
-  const [showPassengerCountModal, setShowPassengerCountModal] =
-    useState<boolean>(false);
-  const [adultCount, setAdultCount] = useState<number>(1);
-  const [childrenCount, setChilrenCount] = useState<number>(0);
+  const [departureDate, setDepartureDate] = useState<Date | null>(null);
+  const [returnDate, setReturnDate] = useState<Date | null>(null);
+  const [roundTrip, setRoundTrip] = useState(true);
+  const [showPassengerCountModal, setShowPassengerCountModal] = useState(false);
+  const [adultCount, setAdultCount] = useState(1);
+  const [childrenCount, setChilrenCount] = useState(0);
 
   useEffect(() => {
+    console.log(queryParams);
     setFromLocation(queryParams.from);
     setToLocation(queryParams.to);
+    setDepartureDate(
+      queryParams.departureDate ? new Date(queryParams.departureDate) : null
+    );
+    setReturnDate(
+      queryParams.returnDate ? new Date(queryParams.returnDate) : null
+    );
   }, [queryParams, fromLocation, toLocation]);
 
   function tripType(e: ChangeEvent<HTMLInputElement>) {
