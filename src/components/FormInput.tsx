@@ -152,7 +152,7 @@ function FormInput() {
                 <div className="relative flex w-[200px] flex-row justify-around">
                   <button
                     onClick={() => {
-                      adultCount > 0
+                      adultCount > 1
                         ? setAdultCount((count) => count - 1)
                         : null;
                     }}

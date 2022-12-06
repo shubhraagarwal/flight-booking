@@ -8,25 +8,31 @@ import NextNProgress from "nextjs-progressbar";
 // @ts-ignore
 import daisyuiColors from "daisyui/src/colors/themes";
 import { MantineProvider } from "@mantine/core";
+import { SessionProvider, SessionProviderProps } from "next-auth/react";
 
-const MyApp: AppType = ({ Component, pageProps }) => {
+const MyApp: AppType<SessionProviderProps> = ({
+  Component,
+  pageProps: { session, ...pageProps },
+}) => {
   return (
     <>
-      <NextNProgress
-        options={{ showSpinner: false }}
-        color={daisyuiColors["[data-theme=light]"].primary}
-      />
+      <SessionProvider session={session}>
+        <NextNProgress
+          options={{ showSpinner: false }}
+          color={daisyuiColors["[data-theme=light]"].primary}
+        />
 
-      <MantineProvider
-        withGlobalStyles
-        withNormalizeCSS
-        theme={{
-          /** Put your mantine theme override here */
-          colorScheme: "light",
-        }}
-      >
-        <Component {...pageProps} />
-      </MantineProvider>
+        <MantineProvider
+          withGlobalStyles
+          withNormalizeCSS
+          theme={{
+            /** Put your mantine theme override here */
+            colorScheme: "light",
+          }}
+        >
+          <Component {...pageProps} />
+        </MantineProvider>
+      </SessionProvider>
     </>
   );
 };
