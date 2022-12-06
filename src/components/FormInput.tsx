@@ -22,6 +22,8 @@ function FormInput() {
     const query: FlightsQueryParams = {
       from: fromLocation,
       to: toLocation,
+      adults: adultCount,
+      children: childrenCount,
       departureDate: departureDate?.toString(),
       returnDate: returnDate?.toString(),
       roundTrip: String(roundTrip),

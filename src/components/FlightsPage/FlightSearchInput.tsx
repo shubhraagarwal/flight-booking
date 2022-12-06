@@ -22,6 +22,8 @@ function FlightSearchInput({
     console.log(queryParams);
     setFromLocation(queryParams.from);
     setToLocation(queryParams.to);
+    setAdultCount(queryParams.adults);
+    setChilrenCount(queryParams.children);
     setDepartureDate(
       queryParams.departureDate ? new Date(queryParams.departureDate) : null
     );
