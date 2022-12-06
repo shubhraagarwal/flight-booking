@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import { ChangeEvent, useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import { FlightsQueryParams } from "types";
 import AirportSearch from "./AirportSearch";
 
 function FormInput() {
@@ -18,14 +19,14 @@ function FormInput() {
   const [childrenCount, setChilrenCount] = useState<number>(0);
 
   function handleFlightsNavigation() {
-    const query = {
+    const query: FlightsQueryParams = {
       from: fromLocation,
       to: toLocation,
       departureDate: departureDate?.toString(),
       returnDate: returnDate?.toString(),
       roundTrip: String(roundTrip),
     };
-    router.push({ pathname: "/flights", query: query });
+    router.push({ pathname: "/flights", query });
   }
 
   function tripType(e: ChangeEvent<HTMLInputElement>) {
