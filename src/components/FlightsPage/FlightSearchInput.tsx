@@ -1,16 +1,36 @@
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import { FlightsQueryParams } from "types";
 import AirportSearch from "../AirportSearch";
 
-function FlightSearchInput() {
-  const [departureDate, setDepartureDate] = useState<Date>();
-  const [returnDate, setReturnDate] = useState<Date>();
-  const [roundTrip, setRoundTrip] = useState<boolean>(true);
-  const [showPassengerCountModal, setShowPassengerCountModal] =
-    useState<boolean>(false);
-  const [adultCount, setAdultCount] = useState<number>(1);
-  const [childrenCount, setChilrenCount] = useState<number>(0);
+function FlightSearchInput({
+  queryParams,
+}: {
+  queryParams: FlightsQueryParams;
+}) {
+  const [fromLocation, setFromLocation] = useState("");
+  const [toLocation, setToLocation] = useState("");
+  const [departureDate, setDepartureDate] = useState<Date | null>(null);
+  const [returnDate, setReturnDate] = useState<Date | null>(null);
+  const [roundTrip, setRoundTrip] = useState(true);
+  const [showPassengerCountModal, setShowPassengerCountModal] = useState(false);
+  const [adultCount, setAdultCount] = useState(1);
+  const [childrenCount, setChilrenCount] = useState(0);
+
+  useEffect(() => {
+    console.log(queryParams);
+    setFromLocation(queryParams.from);
+    setToLocation(queryParams.to);
+    setAdultCount(queryParams.adults);
+    setChilrenCount(queryParams.children);
+    setDepartureDate(
+      queryParams.departureDate ? new Date(queryParams.departureDate) : null
+    );
+    setReturnDate(
+      queryParams.returnDate ? new Date(queryParams.returnDate) : null
+    );
+  }, [queryParams, fromLocation, toLocation]);
 
   function tripType(e: ChangeEvent<HTMLInputElement>) {
     if (e.target.value === "roundTripType") {
@@ -42,9 +62,17 @@ function FlightSearchInput() {
   ];
   return (
     <div className="flex h-[50px] w-[65vw] items-center rounded-md bg-white">
-      <div className={`flex flex-row w-[25vw]`}>
-        <AirportSearch placeholder="From Where?" />
-        <AirportSearch placeholder="To Where?" />
+      <div className={`flex w-[25vw] flex-row`}>
+        <AirportSearch
+          placeholder="From Where?"
+          setLocation={setFromLocation}
+          location={fromLocation}
+        />
+        <AirportSearch
+          placeholder="To Where?"
+          setLocation={setToLocation}
+          location={toLocation}
+        />
       </div>
 
       <div className="flex items-center">
@@ -52,8 +80,8 @@ function FlightSearchInput() {
           dateFormat="dd/MM/yyyy"
           className={
             !roundTrip
-              ? "w-[240px] border p-2 focus:outline-0 rounded-md"
-              : "w-[125px] border p-2 focus:outline-0 rounded-md"
+              ? "w-[240px] rounded-md border p-2 focus:outline-0"
+              : "w-[125px] rounded-md border p-2 focus:outline-0"
           }
           minDate={startDate}
           placeholderText="Departure date"
@@ -116,7 +144,9 @@ function FlightSearchInput() {
         <DatePicker
           minDate={!departureDate ? startDate : departureDate}
           className={
-            !roundTrip ? "hidden " : "w-[125px] border-2 rounded-md p-2 focus:outline-0"
+            !roundTrip
+              ? "hidden "
+              : "w-[125px] rounded-md border-2 p-2 focus:outline-0"
           }
           placeholderText="Return date"
           selected={returnDate}
