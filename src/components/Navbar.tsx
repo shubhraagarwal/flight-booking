@@ -2,7 +2,7 @@ import Link from "next/link";
 
 function Navbar() {
   return (
-    <nav className="h-[100px] flex flex-row justify-between items-center w-screen font-['Nunito_Sans']">
+    <nav className="h-[120px] flex flex-row justify-between items-center w-screen font-['Nunito_Sans'] px-8">
       <div>
         <img src="/images/logo.png" alt="" />
       </div>

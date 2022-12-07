@@ -67,7 +67,7 @@ function FormInput() {
     >
       <div className="flex flex-col justify-center">
         <div className="mb-10">
-          <h1 className="flex flex-col font-['ubuntu'] text-5xl leading-relaxed text-white">
+          <h1 className="flex flex-col font-['ubuntu'] text-5xl leading-relaxed text-white pl-8">
             Let the journey
             <span> begin....</span>
           </h1>

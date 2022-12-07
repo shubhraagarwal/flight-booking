@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 function Features() {
   return (
-    <section className="flex h-screen w-screen flex-row justify-evenly">
+    <section className="flex h-screen w-screen flex-row justify-around ">
       <div className="flex h-screen flex-col justify-center">
         <div className="flex flex-row justify-evenly">
           <div className="flex h-72 w-72 flex-col justify-center p-8 leading-relaxed shadow-lg">
