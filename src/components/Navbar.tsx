@@ -14,7 +14,7 @@ function Navbar() {
           <button>Sign in</button>
         </Link>
         <Link href="/auth/sign-up">
-          <button className="rounded-md bg-[#007CFF] p-2 text-white">
+          <button className="rounded bg-[#007CFF] p-4 text-white">
             Sign up
           </button>
         </Link>
