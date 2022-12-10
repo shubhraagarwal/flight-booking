@@ -27,7 +27,7 @@ export default function AirportSearch({
 
   return (
     <Autocomplete
-      className="w-[242px] p-0"
+      className="w-[242px] md:w-44"
       value={searchQuery}
       data={data || []}
       onChange={(e) => setSearchQuery(e)}

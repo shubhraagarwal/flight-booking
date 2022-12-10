@@ -67,13 +67,13 @@ function FormInput() {
     >
       <div className="flex flex-col justify-center">
         <div className="mb-10">
-          <h1 className="flex flex-col font-['ubuntu'] text-5xl leading-relaxed text-white pl-8">
+          <h1 className="flex flex-col ml-4 font-['ubuntu'] text-5xl leading-relaxed text-white">
             Let the journey
             <span> begin....</span>
           </h1>
         </div>
-        <div className="flex items-center justify-center rounded-md bg-[#041950] px-10 py-10">
-          <div className="flex items-center rounded-md bg-white">
+        <div className="xl:w-[96vw] flex items-center justify-center rounded-md bg-[#041950] p-10 md:bg-transparent">
+          <div className=" flex items-center rounded-md justify-center py-[1px] bg-white xl:flex-wrap xl:justify-center xl:bg-transparent xl:gap-2">
             <AirportSearch
               placeholder="From Where?"
               setLocation={setFromLocation}
@@ -83,12 +83,12 @@ function FormInput() {
               setLocation={setToLocation}
             />
 
-            <div className="flex w-[242px]">
+            <div className="flex">
               <DatePicker
                 dateFormat="dd/MM/yyyy"
                 className={
                   !roundTrip
-                    ? "w-[240px] border-r-2 p-2 focus:outline-0"
+                    ? "border-r-2 py-2 px-2 w-44 focus:outline-0 md:rounded "
                     : "w-[135px] border-r-2 p-2 focus:outline-0"
                 }
                 minDate={startDate}
@@ -162,12 +162,12 @@ function FormInput() {
                 onChange={(date) => setReturnDate(date || new Date())}
               />
             </div>
-            <div>
+            <div className="bg-white md:rounded">
               <button
                 onClick={() => {
                   setShowPassengerCountModal(!showPassengerCountModal);
                 }}
-                className="align-center h-12 w-[240px] rounded-l-md p-2"
+                className="align-center w-[240px] rounded-l-md p-2 md:w-auto md:py-2 md:px-6"
               >
                 {adultCount} Adult {childrenCount} Children
               </button>
@@ -261,7 +261,7 @@ function FormInput() {
             </div>
 
             <button
-              className="align-center mr-[1px] h-12 w-[240px] rounded-r-md bg-[#007CFF] p-2 text-white"
+              className="font-['Nunito_Sans'] align-center mr-[1px] w-[240px] h-12 rounded-r-md bg-[#007CFF] p-2 text-white xl:h-auto md:w-auto md:px-10 md:py-2 md:rounded"
               onClick={handleFlightsNavigation}
             >
               Search

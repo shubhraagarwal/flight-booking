@@ -1,10 +1,10 @@
 /* eslint-disable @next/next/no-img-element */
 function Features() {
   return (
-    <section className="flex h-screen w-screen flex-row justify-around ">
-      <div className="flex h-screen flex-col justify-center">
-        <div className="flex flex-row justify-evenly">
-          <div className="flex h-72 w-72 flex-col justify-center p-8 leading-relaxed shadow-lg">
+    <section className="flex w-screen flex-row justify-around md:mt-8 md:gap-8 md:flex-col md:items-center">
+      <div className="flex h-screen gap-4 flex-col justify-center md:h-auto">
+        <div className="flex flex-row gap-4 justify-evenly md:flex-col">
+          <div className="flex flex-col justify-center p-8 leading-relaxed shadow-xl w-fit">
             <img
               src="/images/featuresCardCar.png"
               width={44}
@@ -19,7 +19,7 @@ function Features() {
             </div>
           </div>
 
-          <div className="flex h-72 w-72 flex-col justify-center p-8 leading-relaxed shadow-lg">
+          <div className="flex flex-col justify-center p-8 leading-relaxed shadow-xl w-fit">
             <img
               src="/images/featuresCardVolcano.png"
               width={44}
@@ -35,8 +35,8 @@ function Features() {
           </div>
         </div>
 
-        <div className="flex flex-row justify-evenly">
-          <div className="flex h-72 w-72 flex-col justify-center p-8 leading-relaxed shadow-lg">
+        <div className="flex flex-row justify-evenly gap-4 md:flex-col">
+          <div className="flex flex-col w-fit justify-center p-8 leading-relaxed shadow-xl">
             <img
               src="/images/featuresCardCard.png"
               width={44}
@@ -51,7 +51,7 @@ function Features() {
             </div>
           </div>
 
-          <div className="flex h-72 w-72 flex-col justify-center p-8 leading-relaxed shadow-lg">
+          <div className="flex flex-col justify-center p-8 leading-relaxed shadow-xl w-fit">
             <img
               src="/images/featuresCardGuide.png"
               width={44}
@@ -68,7 +68,7 @@ function Features() {
         </div>
       </div>
 
-      <div className="flex h-screen items-center justify-evenly">
+      <div className="flex items-center justify-evenly md:p-4">
         <img src="./images/girlFlightSVG.png" alt="" />
       </div>
     </section>

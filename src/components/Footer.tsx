@@ -1,6 +1,6 @@
 function Footer() {
   return (
-    <footer className="bg-[#007CFF] w-screen h-[200px] flex items-center">
+    <footer className="md:hidden bg-[#007CFF] w-screen h-[200px] flex items-center">
         <div className="px-20">
             <img src="/images/footer-logo.png" className="text-3xl text-white"/>
             <div className="font-[Roboto] text-white pt-5 flex gap-5">

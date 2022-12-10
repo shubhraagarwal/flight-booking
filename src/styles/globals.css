@@ -8,6 +8,10 @@ h3, p{
     color: #6E7491;
 }
 
+button{
+    font-family: "Nunito Sans", sans-serif;
+}
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
