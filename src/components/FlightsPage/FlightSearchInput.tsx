@@ -15,15 +15,15 @@ function FlightSearchInput({
   const [returnDate, setReturnDate] = useState<Date | null>(null);
   const [roundTrip, setRoundTrip] = useState(true);
   const [showPassengerCountModal, setShowPassengerCountModal] = useState(false);
-  const [adultCount, setAdultCount] = useState(1);
-  const [childrenCount, setChilrenCount] = useState(0);
+  const [adultCountFlightsPage, setadultCountFlightsPage] = useState(1);
+  const [childrenCountFlightsPage, setchildrenCountFlightsPage] = useState(0);
 
   useEffect(() => {
     console.log(queryParams);
     setFromLocation(queryParams.from);
     setToLocation(queryParams.to);
-    setAdultCount(queryParams.adults);
-    setChilrenCount(queryParams.children);
+    setadultCountFlightsPage(queryParams.adults);
+    setchildrenCountFlightsPage(queryParams.children);
     setDepartureDate(
       queryParams.departureDate ? new Date(queryParams.departureDate) : null
     );
@@ -39,7 +39,6 @@ function FlightSearchInput({
       setRoundTrip(false);
     }
   }
-
   const startDate = new Date(
     new Date().getFullYear(),
     new Date().getMonth(),
@@ -61,8 +60,8 @@ function FlightSearchInput({
     "December",
   ];
   return (
-    <div className="flex h-[50px] w-[65vw] items-center rounded-md bg-white">
-      <div className={`flex w-[25vw] flex-row`}>
+    <div className="flex h-[50px] w-[65vw] items-center rounded-md bg-white lg:w-screen lg:flex-wrap lg:justify-center lg:gap-2 lg:mb-4">
+      <div className={`flex w-[25vw] flex-row lg:w-auto lg:gap-2`}>
         <AirportSearch
           placeholder="From Where?"
           setLocation={setFromLocation}
@@ -75,13 +74,13 @@ function FlightSearchInput({
         />
       </div>
 
-      <div className="flex items-center">
+      <div className="flex items-center lg:gap-2">
         <DatePicker
           dateFormat="dd/MM/yyyy"
           className={
             !roundTrip
-              ? "w-[240px] rounded-md border p-2 focus:outline-0"
-              : "w-[125px] rounded-md border p-2 focus:outline-0"
+              ? "w-44 border-2 py-2 px-2 focus:outline-0 md:rounded "
+              : "w-[135px] border-2 p-2 focus:outline-0"
           }
           minDate={startDate}
           placeholderText="Departure date"
@@ -142,39 +141,39 @@ function FlightSearchInput({
           }}
         />
         <DatePicker
-        dateFormat="dd/MM/yyyy"
+          dateFormat="dd/MM/yyyy"
           minDate={!departureDate ? startDate : departureDate}
           className={
-            !roundTrip
-              ? "hidden "
-              : "w-[125px] rounded-md border-2 p-2 focus:outline-0"
+            !roundTrip ? "hidden" : "w-[135px] border-2 p-2 focus:outline-0"
           }
           placeholderText="Return date"
           selected={returnDate}
           onChange={(date) => setReturnDate(date || new Date())}
         />
       </div>
-      <div className="">
+      <div className="lg:border-2">
         <button
           onClick={() => {
             setShowPassengerCountModal(!showPassengerCountModal);
           }}
-          className="align-center h-12 w-[180px] rounded-l-md p-2"
+          className="align-center w-[180px] justify-center rounded-l-md p-2"
         >
-          {adultCount} Adult {childrenCount} Children
+          {adultCountFlightsPage} Adult {childrenCountFlightsPage} Children
         </button>
 
         <div
           className={
             !showPassengerCountModal
               ? "hidden"
-              : "absolute ml-8 flex h-16 w-[200px] flex-col justify-around bg-white"
+              : "absolute ml-8 flex flex-col justify-around bg-white lg:-ml-4"
           }
         >
-          <div className="relative flex w-[200px] flex-row justify-around">
+          <div className="relative flex  flex-row justify-around">
             <button
               onClick={() => {
-                adultCount > 1 ? setAdultCount(adultCount - 1) : "";
+                adultCountFlightsPage > 1
+                  ? setadultCountFlightsPage(adultCountFlightsPage - 1)
+                  : "";
               }}
             >
               <svg
@@ -191,7 +190,7 @@ function FlightSearchInput({
             <p>Adult</p>
             <button
               onClick={() => {
-                setAdultCount(adultCount + 1);
+                setadultCountFlightsPage(adultCountFlightsPage + 1);
               }}
             >
               <svg
@@ -210,7 +209,7 @@ function FlightSearchInput({
           <div className="relative flex w-[200px] flex-row justify-around">
             <button
               onClick={() => {
-                setChilrenCount(childrenCount - 1);
+                setchildrenCountFlightsPage(childrenCountFlightsPage - 1);
               }}
             >
               <svg
@@ -229,7 +228,7 @@ function FlightSearchInput({
 
             <button
               onClick={() => {
-                setChilrenCount(childrenCount + 1);
+                setchildrenCountFlightsPage(childrenCountFlightsPage + 1);
               }}
             >
               {" "}
@@ -248,7 +247,7 @@ function FlightSearchInput({
         </div>
       </div>
 
-      <button className="align-center mr-[1px] h-12 w-[120px] rounded-r-md bg-[#007CFF] p-2 text-white">
+      <button className="align-center mr-[1px] h-12 w-[120px] rounded-r-md bg-[#007CFF] p-2 text-white md:hidden xl:h-auto">
         Search
       </button>
     </div>
