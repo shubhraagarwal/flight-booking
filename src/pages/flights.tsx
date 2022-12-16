@@ -35,7 +35,7 @@ export default function FlightsPage() {
             </select>
           </div>
 
-          <div className="py-12 sm:hidden">
+          <div className="py-12">
             <FlightSearchInput
               queryParams={router.query as FlightsQueryParams}
             />
