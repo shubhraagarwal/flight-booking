@@ -5,7 +5,7 @@ function Navbar() {
   const [showNav, setShowNav] = useState(false);
   return (
     <nav className="flex h-[120px] w-screen flex-row items-center justify-between px-8 font-['Nunito_Sans'] lg:h-auto lg:px-0 lg:flex-col-reverse lg:justify-center">
-      <div className="lg:ml-4">
+      <div className="lg:ml-8">
         <img src="/images/logo.png" alt="" />
       </div>
       <div className="flex flex-col">

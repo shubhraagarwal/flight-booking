@@ -3,23 +3,23 @@ function PassengerInfoForm() {
     <form className="">
       <div className="flex flex-col gap-4">
         <h2 className="font-medium">Passenger 1 Adult</h2>
-        <div className="flex gap-2">
+        <div className="flex lg:flex-wrap gap-2">
           <input
-            className="rounded-md border-2 p-2"
+            className="rounded-md border-2 p-2 sm:w-[135px]"
             type="text"
             placeholder="First Name"
             name=""
             id=""
           />
           <input
-            className="rounded-md border-2 p-2"
+            className="rounded-md border-2 p-2 sm:w-[135px]"
             placeholder="Middle"
             type="text"
             name=""
             id=""
           />
           <input
-            className="rounded-md border-2 p-2"
+            className="rounded-md border-2 p-2 sm:w-[135px]"
             placeholder="Knowles"
             type="text"
             name=""
@@ -28,14 +28,14 @@ function PassengerInfoForm() {
         </div>
         <div className="flex gap-2">
           <input
-            className="rounded-md border-2 p-2"
+            className="rounded-md border-2 p-2 sm:w-[135px]"
             placeholder="Suffix"
             type="text"
             name=""
             id=""
           />
           <input
-            className="rounded-md border-2 p-2"
+            className="rounded-md border-2 p-2 sm:w-[135px]"
             placeholder="Date of Birth"
             type="date"
             name=""
@@ -45,14 +45,14 @@ function PassengerInfoForm() {
         <div className="flex gap-2">
           <input
             placeholder="Enter your Email"
-            className="rounded-md border-2 p-2"
+            className="rounded-md border-2 p-2 sm:w-[135px]"
             type="text"
             name=""
             id=""
           />
           <input
             placeholder="ID-Card Number"
-            className="rounded-md border-2 p-2"
+            className="rounded-md border-2 p-2 sm:w-[135px]"
             type="text"
             name=""
             id=""
@@ -61,14 +61,14 @@ function PassengerInfoForm() {
         <div className="flex gap-2">
           <input
             placeholder="Address"
-            className="rounded-md border-2 p-2"
+            className="rounded-md border-2 p-2 sm:w-[135px]"
             type="text"
             name=""
             id=""
           />
           <input
             placeholder="Mobile Number"
-            className="rounded-md border-2 p-2"
+            className="rounded-md border-2 p-2 sm:w-[135px]"
             type="text"
             name=""
             id=""
@@ -90,14 +90,14 @@ function PassengerInfoForm() {
         <div className="flex gap-2">
           <input
             placeholder="Name"
-            className="rounded-md border-2 p-2"
+            className="rounded-md border-2 p-2 sm:w-[135px]"
             type="text"
             name=""
             id=""
           />
           <input
             placeholder="Knowles"
-            className="rounded-md border-2 p-2"
+            className="rounded-md border-2 p-2 sm:w-[135px]"
             type="text"
             name=""
             id=""
@@ -106,14 +106,14 @@ function PassengerInfoForm() {
         <div className="flex gap-2">
           <input
             placeholder="Email Address"
-            className="rounded-md border-2 p-2"
+            className="rounded-md border-2 p-2 sm:w-[135px]"
             type="text"
             name=""
             id=""
           />
           <input
             placeholder="Mobile Numbers"
-            className="rounded-md border-2 p-2"
+            className="rounded-md border-2 p-2 sm:w-[135px]"
             type="text"
             name=""
             id=""
