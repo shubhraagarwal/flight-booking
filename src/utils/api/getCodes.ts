@@ -1,4 +1,5 @@
 import { env } from "@/env/server.mjs";
+//@ts-ignore
 import Amadeus from "amadeus";
 
 const amadeus = new Amadeus({
