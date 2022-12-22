@@ -1,6 +1,6 @@
 function FlightsCart() {
   return (
-    <div className="flex w-[25vw] flex-col justify-center gap-4 lg:w-screen lg:px-2">
+    <div className="flex w-[25vw] flex-col justify-center gap-4 lg:w-fit lg:px-2">
       <div className="flex flex-row items-center justify-around rounded-lg border-2 py-4 lg:px-8 lg:gap-4">
         <div>
           <img src="/images/flightLogo.png" alt="" />

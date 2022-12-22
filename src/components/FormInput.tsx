@@ -1,10 +1,13 @@
 // http://localhost:3000/flights?from=BOM+-+MUMBAI&to=PNY+-+PONDICHERRY&departureDate=Sat+Dec+24+2022+00%3A00%3A00+GMT%2B0530+%28India+Standard+Time%29&returnDate=&roundTrip=undefined
 import { useRouter } from "next/router";
-import { ChangeEvent, useState } from "react";
+import React, { useState, useContext } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { FlightsQueryParams } from "types";
 import AirportSearch from "./AirportSearch";
+import { flightSearchSchema } from "./FormValidation";
+// import PassengerInfoForm from "./PassengerDetails/PassengerInfoForm";
+import { AdultCountContext } from "@/pages/_app";
 
 function FormInput() {
   const router = useRouter();
@@ -18,24 +21,26 @@ function FormInput() {
   const [adultCount, setAdultCount] = useState<number>(1);
   const [childrenCount, setChilrenCount] = useState<number>(0);
 
-  function handleFlightsNavigation() {
-    const query: FlightsQueryParams = {
-      from: fromLocation,
-      to: toLocation,
-      adults: adultCount,
-      children: childrenCount,
-      departureDate: departureDate?.toString(),
-      returnDate: returnDate?.toString(),
-      roundTrip: String(roundTrip),
+  async function handleFlightsNavigation() {
+    const validation = {
+      fromWhere: fromLocation,
+      toWhere: toLocation,
     };
-    router.push({ pathname: "/flights", query });
-  }
+    const isValid = await flightSearchSchema.isValid(validation);
 
-  function tripType(e: ChangeEvent<HTMLInputElement>) {
-    if (e.target.value === "roundTripType") {
-      setRoundTrip(true);
-    } else if (e.target.value === "oneWayTripType") {
-      setRoundTrip(false);
+    if (isValid) {
+      const query: FlightsQueryParams = {
+        from: fromLocation,
+        to: toLocation,
+        adults: adultCount,
+        children: childrenCount,
+        departureDate: departureDate?.toString(),
+        returnDate: returnDate?.toString(),
+        roundTrip: String(roundTrip),
+      };
+      router.push({ pathname: "/flights", query });
+    } else {
+      console.log("Please enter all fields correctly");
     }
   }
 
@@ -45,20 +50,9 @@ function FormInput() {
     new Date().getDate()
   );
 
-  const months = [
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December",
-  ];
+  const AdultContext = useContext(AdultCountContext);
+  AdultContext.setGlobalAdultCount(adultCount);
+  console.log(AdultContext.GlobalAdultCount);
 
   return (
     <section
@@ -67,13 +61,13 @@ function FormInput() {
     >
       <div className="flex flex-col justify-center">
         <div className="mb-10">
-          <h1 className="flex flex-col ml-4 font-['ubuntu'] text-5xl leading-relaxed text-white">
+          <h1 className="ml-4 flex flex-col font-['ubuntu'] text-5xl leading-relaxed text-white">
             Let the journey
             <span> begin....</span>
           </h1>
         </div>
-        <div className="xl:w-[96vw] flex items-center justify-center rounded-md bg-[#041950] p-10 md:bg-transparent">
-          <div className=" flex items-center rounded-md justify-center py-[1px] bg-white xl:flex-wrap xl:justify-center xl:bg-transparent xl:gap-2">
+        <div className="flex items-center justify-center rounded-md bg-[#041950] p-10 xl:w-[96vw] md:bg-transparent">
+          <div className=" flex items-center justify-center rounded-md bg-white py-[1px] xl:flex-wrap xl:justify-center xl:gap-2 xl:bg-transparent">
             <AirportSearch
               placeholder="From Where?"
               setLocation={setFromLocation}
@@ -86,77 +80,16 @@ function FormInput() {
             <div className="flex">
               <DatePicker
                 dateFormat="dd/MM/yyyy"
-                className={
-                  !roundTrip
-                    ? "border-r-2 py-2 px-2 w-44 focus:outline-0 md:rounded "
-                    : "w-[135px] border-r-2 p-2 focus:outline-0"
-                }
+                className="w-[135px] border-r-2 p-2 focus:outline-0"
                 minDate={startDate}
                 placeholderText="Departure date"
                 selected={departureDate}
                 onChange={(date) => setDepartureDate(date || new Date())}
-                renderCustomHeader={({
-                  date,
-                  decreaseMonth,
-                  increaseMonth,
-                  prevMonthButtonDisabled,
-                  nextMonthButtonDisabled,
-                }) => {
-                  return (
-                    <div className="flex flex-col gap-2 p-[8px] font-[Ubuntu] text-sm">
-                      <div className="flex flex-row items-center justify-evenly">
-                        <label htmlFor="">
-                          <input
-                            type="radio"
-                            name="trip-type"
-                            id=""
-                            value={"roundTripType"}
-                            onChange={tripType}
-                          />{" "}
-                          Round Trip
-                        </label>
-                        <label htmlFor="">
-                          <input
-                            type="radio"
-                            name="trip-type"
-                            id=""
-                            value={"oneWayTripType"}
-                            onChange={tripType}
-                          />{" "}
-                          One Way
-                        </label>
-                      </div>
-
-                      <div className="flex flex-row items-center justify-around text-base">
-                        <button
-                          onClick={decreaseMonth}
-                          disabled={prevMonthButtonDisabled}
-                        >
-                          {"<"}
-                        </button>
-                        <div className="flex flex-row gap-4">
-                          <p className="font-bold">{months[date.getMonth()]}</p>
-                          <p className="font-bold">{date.getFullYear()}</p>
-                        </div>
-                        <button
-                          onClick={increaseMonth}
-                          disabled={nextMonthButtonDisabled}
-                        >
-                          {">"}
-                        </button>
-                      </div>
-                    </div>
-                  );
-                }}
               />
               <DatePicker
                 dateFormat="dd/MM/yyyy"
                 minDate={!departureDate ? startDate : departureDate}
-                className={
-                  !roundTrip
-                    ? "hidden"
-                    : "w-[135px] border-r-2 p-2 focus:outline-0"
-                }
+                className="w-[135px] border-r-2 p-2 focus:outline-0"
                 placeholderText="Return date"
                 selected={returnDate}
                 onChange={(date) => setReturnDate(date || new Date())}
@@ -216,7 +149,6 @@ function FormInput() {
                     </svg>
                   </button>
                 </div>
-
                 <div className="relative flex w-[200px] flex-row justify-around">
                   <button
                     onClick={() => {
@@ -261,7 +193,7 @@ function FormInput() {
             </div>
 
             <button
-              className="font-['Nunito_Sans'] align-center mr-[1px] w-[240px] h-12 rounded-r-md bg-[#007CFF] p-2 text-white xl:h-auto md:w-auto md:px-10 md:py-2 md:rounded"
+              className="align-center mr-[1px] h-12 w-[240px] rounded-r-md bg-[#007CFF] p-2 font-['Nunito_Sans'] text-white xl:h-auto md:w-auto md:rounded md:px-10 md:py-2"
               onClick={handleFlightsNavigation}
             >
               Search
