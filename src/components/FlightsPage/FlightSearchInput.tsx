@@ -61,6 +61,7 @@ function FlightSearchInput({
     // setReturnDate(
     //   flightData.returnDate ? new Date(flightData.returnDate) : null
     // );
+    localStorage.setItem("flightData", JSON.stringify(flightData));
   }, [flightData]);
 
   function tripType(e: ChangeEvent<HTMLInputElement>) {
