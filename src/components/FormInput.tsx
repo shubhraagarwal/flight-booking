@@ -1,9 +1,12 @@
 import { useRouter } from "next/router";
-import { ChangeEvent, useState } from "react";
+import React, { useState, useContext } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { FlightData } from "types";
 import AirportSearch from "./AirportSearch";
+import { flightSearchSchema } from "./FormValidation";
+// import PassengerInfoForm from "./PassengerDetails/PassengerInfoForm";
+import { AdultCountContext } from "@/pages/_app";
 
 function FormInput() {
   const router = useRouter();
@@ -31,11 +34,19 @@ function FormInput() {
     router.push({ pathname: "/flights" });
   }
 
-  function tripType(e: ChangeEvent<HTMLInputElement>) {
-    if (e.target.value === "roundTripType") {
-      setRoundTrip(true);
-    } else if (e.target.value === "oneWayTripType") {
-      setRoundTrip(false);
+    if (isValid) {
+      const query: FlightsQueryParams = {
+        from: fromLocation,
+        to: toLocation,
+        adults: adultCount,
+        children: childrenCount,
+        departureDate: departureDate?.toString(),
+        returnDate: returnDate?.toString(),
+        roundTrip: String(roundTrip),
+      };
+      router.push({ pathname: "/flights", query });
+    } else {
+      console.log("Please enter all fields correctly");
     }
   }
 
@@ -45,20 +56,9 @@ function FormInput() {
     new Date().getDate()
   );
 
-  const months = [
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December",
-  ];
+  const AdultContext = useContext(AdultCountContext);
+  AdultContext.setGlobalAdultCount(adultCount);
+  console.log(AdultContext.GlobalAdultCount);
 
   return (
     <section
@@ -86,77 +86,17 @@ function FormInput() {
             <div className="flex">
               <DatePicker
                 dateFormat="dd/MM/yyyy"
-                className={
-                  !roundTrip
-                    ? "w-44 border-r-2 py-2 px-2 focus:outline-0 md:rounded "
-                    : "w-[135px] border-r-2 p-2 focus:outline-0"
-                }
+
+                className="w-[135px] border-r-2 p-2 focus:outline-0"
                 minDate={startDate}
                 placeholderText="Departure date"
                 selected={departureDate}
                 onChange={(date) => setDepartureDate(date || new Date())}
-                renderCustomHeader={({
-                  date,
-                  decreaseMonth,
-                  increaseMonth,
-                  prevMonthButtonDisabled,
-                  nextMonthButtonDisabled,
-                }) => {
-                  return (
-                    <div className="flex flex-col gap-2 p-[8px] font-[Ubuntu] text-sm">
-                      <div className="flex flex-row items-center justify-evenly">
-                        <label htmlFor="">
-                          <input
-                            type="radio"
-                            name="trip-type"
-                            id=""
-                            value={"roundTripType"}
-                            onChange={tripType}
-                          />{" "}
-                          Round Trip
-                        </label>
-                        <label htmlFor="">
-                          <input
-                            type="radio"
-                            name="trip-type"
-                            id=""
-                            value={"oneWayTripType"}
-                            onChange={tripType}
-                          />{" "}
-                          One Way
-                        </label>
-                      </div>
-
-                      <div className="flex flex-row items-center justify-around text-base">
-                        <button
-                          onClick={decreaseMonth}
-                          disabled={prevMonthButtonDisabled}
-                        >
-                          {"<"}
-                        </button>
-                        <div className="flex flex-row gap-4">
-                          <p className="font-bold">{months[date.getMonth()]}</p>
-                          <p className="font-bold">{date.getFullYear()}</p>
-                        </div>
-                        <button
-                          onClick={increaseMonth}
-                          disabled={nextMonthButtonDisabled}
-                        >
-                          {">"}
-                        </button>
-                      </div>
-                    </div>
-                  );
-                }}
               />
               <DatePicker
                 dateFormat="dd/MM/yyyy"
                 minDate={!departureDate ? startDate : departureDate}
-                className={
-                  !roundTrip
-                    ? "hidden"
-                    : "w-[135px] border-r-2 p-2 focus:outline-0"
-                }
+                className="w-[135px] border-r-2 p-2 focus:outline-0"
                 placeholderText="Return date"
                 selected={returnDate}
                 onChange={(date) => setReturnDate(date || new Date())}
@@ -216,7 +156,6 @@ function FormInput() {
                     </svg>
                   </button>
                 </div>
-
                 <div className="relative flex w-[200px] flex-row justify-around">
                   <button
                     onClick={() => {

@@ -1,15 +1,53 @@
+import { useState, useContext } from "react";
+import { AdultCountContext } from "@/pages/_app";
+
 function PassengerInfoForm() {
+  const [firstName, setFirstName] = useState<string>("");
+  const [middleName, setMiddleName] = useState<string>("");
+  const [knowles, setKnowles] = useState<string>("");
+  const [sufflx, setSufflx] = useState<string>("");
+  const [dateOfBirth, setDateOfBirth] = useState<Date>();
+  const [email, setEmail] = useState<string>("");
+  const [idCardNumber, setIdCardNumber] = useState<number>();
+  const [address, setAddress] = useState<string>("");
+  const [mobileNumber, setMobileNumber] = useState<number>();
+
+  const [emergencySame, setEmergencySame] = useState(false);
+
+  const [emergencyName, setEmergencyName] = useState<string>("");
+  const [emergencyKnowles, setEmergencyKnowles] = useState<string>("");
+  const [emergencyEmail, setEmergencyEmail] = useState<string>("");
+  const [emergencyMobileNumber, setEmergencyMobileNumber] = useState<number>();
+
+  const PassengerCount = useContext(AdultCountContext);
+  const PassengerDetailsArray = [];
+
+  const GlobalAdultCount = PassengerCount.GlobalAdultCount;
+  for (let i = 0; i < GlobalAdultCount; i++) {
+    PassengerDetailsArray.push({
+      x: "",
+      y: "",
+    });
+  }
+
+  console.log(PassengerDetailsArray);
+
   return (
     <form className="">
       <div className="flex flex-col gap-4">
         <h2 className="font-medium">Passenger 1 Adult</h2>
-        <div className="flex lg:flex-wrap gap-2">
+        <div className="flex gap-2 lg:flex-wrap">
+          {}
           <input
             className="rounded-md border-2 p-2 sm:w-[135px]"
             type="text"
             placeholder="First Name"
             name=""
             id=""
+            value={firstName}
+            onChange={(e) => {
+              setFirstName(e.target.value);
+            }}
           />
           <input
             className="rounded-md border-2 p-2 sm:w-[135px]"
@@ -17,6 +55,10 @@ function PassengerInfoForm() {
             type="text"
             name=""
             id=""
+            value={middleName}
+            onChange={(e) => {
+              setMiddleName(e.target.value);
+            }}
           />
           <input
             className="rounded-md border-2 p-2 sm:w-[135px]"
@@ -24,6 +66,10 @@ function PassengerInfoForm() {
             type="text"
             name=""
             id=""
+            value={knowles}
+            onChange={(e) => {
+              setKnowles(e.target.value);
+            }}
           />
         </div>
         <div className="flex gap-2">
@@ -33,12 +79,16 @@ function PassengerInfoForm() {
             type="text"
             name=""
             id=""
+            value={sufflx}
+            onChange={(e) => {
+              setSufflx(e.target.value);
+            }}
           />
           <input
             className="rounded-md border-2 p-2 sm:w-[135px]"
             placeholder="Date of Birth"
             type="date"
-            name=""
+            name="Date of Birth"
             id=""
           />
         </div>
@@ -49,6 +99,10 @@ function PassengerInfoForm() {
             type="text"
             name=""
             id=""
+            value={email}
+            onChange={(e) => {
+              setEmail(e.target.value);
+            }}
           />
           <input
             placeholder="ID-Card Number"
@@ -56,6 +110,10 @@ function PassengerInfoForm() {
             type="text"
             name=""
             id=""
+            value={idCardNumber}
+            onChange={(e) => {
+              setIdCardNumber(parseInt(e.target.value));
+            }}
           />
         </div>
         <div className="flex gap-2">
@@ -65,6 +123,10 @@ function PassengerInfoForm() {
             type="text"
             name=""
             id=""
+            value={address}
+            onChange={(e) => {
+              setAddress(e.target.value);
+            }}
           />
           <input
             placeholder="Mobile Number"
@@ -72,9 +134,20 @@ function PassengerInfoForm() {
             type="text"
             name=""
             id=""
+            value={mobileNumber}
+            onChange={(e) => {
+              setMobileNumber(parseInt(e.target.value));
+            }}
           />
         </div>
       </div>
+
+      {PassengerDetailsArray.map((j, index) => (
+        <div key={index}>
+          <h3>Passenger {index + 2} Details</h3>
+          <input type="text" name="" id="" value={j.x} onChange={(e)=>{j.x = e.target.value}}/>
+        </div>
+      ))}
 
       <div className="flex flex-col gap-4">
         <h2 className="mt-8 font-medium">Emergency contact information</h2>
@@ -84,6 +157,10 @@ function PassengerInfoForm() {
             type="radio"
             name=""
             id=""
+            checked={emergencySame}
+            onChange={() => {
+              setEmergencySame(!emergencySame);
+            }}
           />
           Same as Passenger 1
         </label>
@@ -94,6 +171,11 @@ function PassengerInfoForm() {
             type="text"
             name=""
             id=""
+            value={emergencySame ? firstName : emergencyName}
+            onChange={(e) => {
+              setEmergencyName(e.target.value);
+              setEmergencySame(false);
+            }}
           />
           <input
             placeholder="Knowles"
@@ -101,6 +183,11 @@ function PassengerInfoForm() {
             type="text"
             name=""
             id=""
+            value={emergencySame ? knowles : emergencyKnowles}
+            onChange={(e) => {
+              setEmergencyKnowles(e.target.value);
+              setEmergencySame(false);
+            }}
           />
         </div>
         <div className="flex gap-2">
@@ -110,6 +197,11 @@ function PassengerInfoForm() {
             type="text"
             name=""
             id=""
+            value={emergencySame ? email : emergencyEmail}
+            onChange={(e) => {
+              setEmergencyEmail(e.target.value);
+              setEmergencySame(false);
+            }}
           />
           <input
             placeholder="Mobile Numbers"
