@@ -6,15 +6,22 @@ import FlightsCart from "@/components/FlightsCart";
 import Link from "next/link";
 import { FlightData } from "types";
 import { useEffect, useState } from "react";
+import { trpc } from "@/utils/trpc";
+import { z } from "zod";
+import { flightSearchSchema } from "@/server/trpc/router/flights";
 
 export default function FlightsPage() {
   const [flightData, setFlightData] = useState<FlightData | null>(null);
+  const { data, refetch } = trpc.flights.search.useQuery(
+    flightData as z.infer<typeof flightSearchSchema>
+  );
 
   useEffect(() => {
     const lcData = localStorage.getItem("flightData");
     if (lcData) setFlightData(JSON.parse(lcData));
   }, []);
 
+  console.log({ data });
   return (
     <main className="flex flex-col lg:min-h-screen">
       <Navbar />
