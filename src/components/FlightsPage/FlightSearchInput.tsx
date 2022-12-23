@@ -21,8 +21,12 @@ function FlightSearchInput({
   );
   const [roundTrip, setRoundTrip] = useState(true);
   const [showPassengerCountModal, setShowPassengerCountModal] = useState(false);
-  const [adultCountFlightsPage, setadultCountFlightsPage] = useState(1);
-  const [childrenCountFlightsPage, setchildrenCountFlightsPage] = useState(0);
+  const [adultCountFlightsPage, setadultCountFlightsPage] = useState(
+    flightData.adults
+  );
+  const [childrenCountFlightsPage, setchildrenCountFlightsPage] = useState(
+    flightData.children
+  );
 
   // useEffect(() => {
   //   console.log("dep date changed");
@@ -50,17 +54,6 @@ function FlightSearchInput({
   ]);
 
   useEffect(() => {
-    console.log(flightData);
-    setFromLocation(flightData.from);
-    setToLocation(flightData.to);
-    setadultCountFlightsPage(flightData.adults);
-    setchildrenCountFlightsPage(flightData.children);
-    // setDepartureDate(
-    //   flightData.departureDate ? new Date(flightData.departureDate) : null
-    // );
-    // setReturnDate(
-    //   flightData.returnDate ? new Date(flightData.returnDate) : null
-    // );
     localStorage.setItem("flightData", JSON.stringify(flightData));
   }, [flightData]);
 
