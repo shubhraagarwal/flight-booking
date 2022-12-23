@@ -1,4 +1,3 @@
-// http://localhost:3000/flights?from=BOM+-+MUMBAI&to=PNY+-+PONDICHERRY&departureDate=Sat+Dec+24+2022+00%3A00%3A00+GMT%2B0530+%28India+Standard+Time%29&returnDate=&roundTrip=undefined
 import { useRouter } from "next/router";
 import { ChangeEvent, useState } from "react";
 import DatePicker from "react-datepicker";

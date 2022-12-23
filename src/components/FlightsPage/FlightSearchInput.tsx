@@ -4,15 +4,50 @@ import "react-datepicker/dist/react-datepicker.css";
 import { FlightData } from "types";
 import AirportSearch from "../AirportSearch";
 
-function FlightSearchInput({ flightData }: { flightData: FlightData }) {
-  const [fromLocation, setFromLocation] = useState("");
-  const [toLocation, setToLocation] = useState("");
-  const [departureDate, setDepartureDate] = useState<Date | null>(null);
-  const [returnDate, setReturnDate] = useState<Date | null>(null);
+function FlightSearchInput({
+  flightData,
+  setFlightData,
+}: {
+  flightData: FlightData;
+  setFlightData: (fd: FlightData) => void;
+}) {
+  const [fromLocation, setFromLocation] = useState(flightData.from);
+  const [toLocation, setToLocation] = useState(flightData.to);
+  const [departureDate, setDepartureDate] = useState<Date | null>(
+    flightData.departureDate ? new Date(flightData.departureDate) : null
+  );
+  const [returnDate, setReturnDate] = useState<Date | null>(
+    flightData.returnDate ? new Date(flightData.returnDate) : null
+  );
   const [roundTrip, setRoundTrip] = useState(true);
   const [showPassengerCountModal, setShowPassengerCountModal] = useState(false);
   const [adultCountFlightsPage, setadultCountFlightsPage] = useState(1);
   const [childrenCountFlightsPage, setchildrenCountFlightsPage] = useState(0);
+
+  // useEffect(() => {
+  //   console.log("dep date changed");
+  //   console.log(flightData);
+  // }, [departureDate]);
+
+  useEffect(() => {
+    setFlightData({
+      ...flightData,
+      from: fromLocation,
+      to: toLocation,
+      adults: adultCountFlightsPage,
+      children: childrenCountFlightsPage,
+      departureDate: departureDate?.toString(),
+      returnDate: returnDate?.toString(),
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [
+    fromLocation,
+    toLocation,
+    adultCountFlightsPage,
+    childrenCountFlightsPage,
+    departureDate,
+    returnDate,
+  ]);
 
   useEffect(() => {
     console.log(flightData);
@@ -20,13 +55,13 @@ function FlightSearchInput({ flightData }: { flightData: FlightData }) {
     setToLocation(flightData.to);
     setadultCountFlightsPage(flightData.adults);
     setchildrenCountFlightsPage(flightData.children);
-    setDepartureDate(
-      flightData.departureDate ? new Date(flightData.departureDate) : null
-    );
-    setReturnDate(
-      flightData.returnDate ? new Date(flightData.returnDate) : null
-    );
-  }, [flightData, fromLocation, toLocation]);
+    // setDepartureDate(
+    //   flightData.departureDate ? new Date(flightData.departureDate) : null
+    // );
+    // setReturnDate(
+    //   flightData.returnDate ? new Date(flightData.returnDate) : null
+    // );
+  }, [flightData]);
 
   function tripType(e: ChangeEvent<HTMLInputElement>) {
     if (e.target.value === "roundTripType") {
