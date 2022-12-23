@@ -12,9 +12,9 @@ import { flightSearchSchema } from "@/server/trpc/router/flights";
 
 export default function FlightsPage() {
   const [flightData, setFlightData] = useState<FlightData | null>(null);
-  // const { data } = trpc.flights.search.useQuery(
-  //   flightData as z.infer<typeof flightSearchSchema>
-  // );
+  const { data } = trpc.flights.search.useQuery(
+    flightData as z.infer<typeof flightSearchSchema>
+  );
 
   // console.log({ flightData });
 
@@ -23,7 +23,7 @@ export default function FlightsPage() {
     if (lcData) setFlightData(JSON.parse(lcData));
   }, []);
 
-  // console.log({ data });
+  console.log({ data });
   return (
     <main className="flex flex-col lg:min-h-screen">
       <Navbar />

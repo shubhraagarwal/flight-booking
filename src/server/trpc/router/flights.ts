@@ -3,7 +3,7 @@ import { z } from "zod";
 //@ts-ignore
 import Amadeus from "amadeus";
 import { env } from "@/env/server.mjs";
-import { FlightData } from "types";
+import { Flight, FlightData } from "types";
 
 const amadeus = new Amadeus({
   clientId: env.AMADEUS_KEY,
@@ -51,9 +51,10 @@ export const flightsRouter = router({
           children: input.children,
         });
         console.log(data.result.data);
-        return { flights: data.result.data };
+        return { flights: data.result.data as Flight[] };
       } catch (err) {
         console.error(err);
+        return { flights: null };
       }
     }),
 });
