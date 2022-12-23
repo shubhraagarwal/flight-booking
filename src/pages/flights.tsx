@@ -12,7 +12,7 @@ import { flightSearchSchema } from "@/server/trpc/router/flights";
 
 export default function FlightsPage() {
   const [flightData, setFlightData] = useState<FlightData | null>(null);
-  const { data } = trpc.flights.search.useQuery(
+  const { data, isLoading } = trpc.flights.search.useQuery(
     flightData as z.infer<typeof flightSearchSchema>
   );
 
