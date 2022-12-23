@@ -1,35 +1,62 @@
 import React, { useEffect, useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { FlightsQueryParams } from "types";
+import { FlightData } from "types";
 import AirportSearch from "../AirportSearch";
 
 function FlightSearchInput({
-  queryParams,
+  flightData,
+  setFlightData,
 }: {
-  queryParams: FlightsQueryParams;
+  flightData: FlightData;
+  setFlightData: (fd: FlightData) => void;
 }) {
-  const [fromLocation, setFromLocation] = useState("");
-  const [toLocation, setToLocation] = useState("");
-  const [departureDate, setDepartureDate] = useState<Date | null>(null);
-  const [returnDate, setReturnDate] = useState<Date | null>(null);
+  const [fromLocation, setFromLocation] = useState(flightData.from);
+  const [toLocation, setToLocation] = useState(flightData.to);
+  const [departureDate, setDepartureDate] = useState<Date | null>(
+    flightData.departureDate ? new Date(flightData.departureDate) : null
+  );
+  const [returnDate, setReturnDate] = useState<Date | null>(
+    flightData.returnDate ? new Date(flightData.returnDate) : null
+  );
+  const [roundTrip, setRoundTrip] = useState(true);
+
   const [showPassengerCountModal, setShowPassengerCountModal] = useState(false);
-  const [adultCountFlightsPage, setadultCountFlightsPage] = useState(1);
-  const [childrenCountFlightsPage, setchildrenCountFlightsPage] = useState(0);
+  const [adultCountFlightsPage, setadultCountFlightsPage] = useState(
+    flightData.adults
+  );
+  const [childrenCountFlightsPage, setchildrenCountFlightsPage] = useState(
+    flightData.children
+  );
+
+  // useEffect(() => {
+  //   console.log("dep date changed");
+  //   console.log(flightData);
+  // }, [departureDate]);
 
   useEffect(() => {
-    console.log(queryParams);
-    setFromLocation(queryParams.from);
-    setToLocation(queryParams.to);
-    setadultCountFlightsPage(queryParams.adults);
-    setchildrenCountFlightsPage(queryParams.children);
-    setDepartureDate(
-      queryParams.departureDate ? new Date(queryParams.departureDate) : null
-    );
-    setReturnDate(
-      queryParams.returnDate ? new Date(queryParams.returnDate) : null
-    );
-  }, [queryParams, fromLocation, toLocation]);
+    setFlightData({
+      ...flightData,
+      from: fromLocation,
+      to: toLocation,
+      adults: adultCountFlightsPage,
+      children: childrenCountFlightsPage,
+      departureDate: departureDate?.toString(),
+      returnDate: returnDate?.toString(),
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [
+    fromLocation,
+    toLocation,
+    adultCountFlightsPage,
+    childrenCountFlightsPage,
+    departureDate,
+    returnDate,
+  ]);
+
+  useEffect(() => {
+    localStorage.setItem("flightData", JSON.stringify(flightData));
+  }, [flightData]);
 
   
 
@@ -174,6 +201,7 @@ function FlightSearchInput({
             </div>
           </div>
         </div>
+
 
         <button className="align-center mr-[1px] w-[120px] rounded-r-md border-2 border-transparent bg-[#007CFF] p-2 text-white xl:h-auto md:hidden">
           Search

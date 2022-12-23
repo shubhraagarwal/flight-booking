@@ -1,9 +1,8 @@
-// http://localhost:3000/flights?from=BOM+-+MUMBAI&to=PNY+-+PONDICHERRY&departureDate=Sat+Dec+24+2022+00%3A00%3A00+GMT%2B0530+%28India+Standard+Time%29&returnDate=&roundTrip=undefined
 import { useRouter } from "next/router";
 import React, { useState, useContext } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { FlightsQueryParams } from "types";
+import { FlightData } from "types";
 import AirportSearch from "./AirportSearch";
 import { flightSearchSchema } from "./FormValidation";
 // import PassengerInfoForm from "./PassengerDetails/PassengerInfoForm";
@@ -21,12 +20,19 @@ function FormInput() {
   const [adultCount, setAdultCount] = useState<number>(1);
   const [childrenCount, setChilrenCount] = useState<number>(0);
 
-  async function handleFlightsNavigation() {
-    const validation = {
-      fromWhere: fromLocation,
-      toWhere: toLocation,
+  function handleFlightsNavigation() {
+    const flightData: FlightData = {
+      from: fromLocation,
+      to: toLocation,
+      adults: adultCount,
+      children: childrenCount,
+      departureDate: departureDate?.toString(),
+      returnDate: returnDate?.toString(),
+      roundTrip: String(roundTrip),
     };
-    const isValid = await flightSearchSchema.isValid(validation);
+    localStorage.setItem("flightData", JSON.stringify(flightData));
+    router.push({ pathname: "/flights" });
+  }
 
     if (isValid) {
       const query: FlightsQueryParams = {
@@ -80,6 +86,7 @@ function FormInput() {
             <div className="flex">
               <DatePicker
                 dateFormat="dd/MM/yyyy"
+
                 className="w-[135px] border-r-2 p-2 focus:outline-0"
                 minDate={startDate}
                 placeholderText="Departure date"
