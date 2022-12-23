@@ -1,14 +1,10 @@
 import { ChangeEvent, useEffect, useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { FlightsQueryParams } from "types";
+import { FlightData } from "types";
 import AirportSearch from "../AirportSearch";
 
-function FlightSearchInput({
-  queryParams,
-}: {
-  queryParams: FlightsQueryParams;
-}) {
+function FlightSearchInput({ flightData }: { flightData: FlightData }) {
   const [fromLocation, setFromLocation] = useState("");
   const [toLocation, setToLocation] = useState("");
   const [departureDate, setDepartureDate] = useState<Date | null>(null);
@@ -19,18 +15,18 @@ function FlightSearchInput({
   const [childrenCountFlightsPage, setchildrenCountFlightsPage] = useState(0);
 
   useEffect(() => {
-    console.log(queryParams);
-    setFromLocation(queryParams.from);
-    setToLocation(queryParams.to);
-    setadultCountFlightsPage(queryParams.adults);
-    setchildrenCountFlightsPage(queryParams.children);
+    console.log(flightData);
+    setFromLocation(flightData.from);
+    setToLocation(flightData.to);
+    setadultCountFlightsPage(flightData.adults);
+    setchildrenCountFlightsPage(flightData.children);
     setDepartureDate(
-      queryParams.departureDate ? new Date(queryParams.departureDate) : null
+      flightData.departureDate ? new Date(flightData.departureDate) : null
     );
     setReturnDate(
-      queryParams.returnDate ? new Date(queryParams.returnDate) : null
+      flightData.returnDate ? new Date(flightData.returnDate) : null
     );
-  }, [queryParams, fromLocation, toLocation]);
+  }, [flightData, fromLocation, toLocation]);
 
   function tripType(e: ChangeEvent<HTMLInputElement>) {
     if (e.target.value === "roundTripType") {
@@ -60,7 +56,7 @@ function FlightSearchInput({
     "December",
   ];
   return (
-    <div className="flex h-[50px] w-[65vw] items-center rounded-md bg-white lg:w-screen lg:flex-wrap lg:justify-center lg:gap-2 lg:mb-4">
+    <div className="flex h-[50px] w-[65vw] items-center rounded-md bg-white lg:mb-4 lg:w-screen lg:flex-wrap lg:justify-center lg:gap-2">
       <div className={`flex w-[25vw] flex-row lg:w-auto lg:gap-2`}>
         <AirportSearch
           placeholder="From Where?"
@@ -247,7 +243,7 @@ function FlightSearchInput({
         </div>
       </div>
 
-      <button className="align-center mr-[1px] h-12 w-[120px] rounded-r-md bg-[#007CFF] p-2 text-white md:hidden xl:h-auto">
+      <button className="align-center mr-[1px] h-12 w-[120px] rounded-r-md bg-[#007CFF] p-2 text-white xl:h-auto md:hidden">
         Search
       </button>
     </div>

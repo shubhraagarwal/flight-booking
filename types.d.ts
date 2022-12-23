@@ -1,7 +1,6 @@
-import { ParsedUrlQueryInput } from "querystring";
 declare module "amadeus";
 
-export interface FlightsQueryParams extends ParsedUrlQueryInput {
+export interface FlightData {
   from: string;
   to: string;
   adults: number;

@@ -4,25 +4,30 @@ import FlightInfo from "@/components/FlightsPage/FlightInfo";
 import Footer from "@/components/Footer";
 import FlightsCart from "@/components/FlightsCart";
 import Link from "next/link";
-import { useRouter } from "next/router";
-import { FlightsQueryParams } from "types";
+import { FlightData } from "types";
+import { useEffect, useState } from "react";
 
 export default function FlightsPage() {
-  const router = useRouter();
+  const [flightData, setFlightData] = useState<FlightData | null>(null);
+
+  useEffect(() => {
+    const lcData = localStorage.getItem("flightData");
+    if (lcData) setFlightData(JSON.parse(lcData));
+  }, []);
 
   return (
     <main className="flex flex-col lg:min-h-screen">
       <Navbar />
       <section className="mb-20 flex flex-row items-center justify-evenly sm:w-screen">
         <div className="">
-          <div className="my-4 sm:my-4 flex justify-end sm:justify-center">
+          <div className="my-4 flex justify-end sm:my-4 sm:justify-center">
             <Link href="/passengerInfo">
               <button className="rounded-md bg-[#007CFF] p-4 text-white">
                 Passenger Information
               </button>
             </Link>
           </div>
-          <div className="flex justify-center flex-row gap-2 sm:ml-4">
+          <div className="flex flex-row justify-center gap-2 sm:ml-4">
             <select name="" id="" className="rounded-lg border-2 p-2">
               <option value="Min Price" selected disabled>
                 Min Price
@@ -36,12 +41,10 @@ export default function FlightsPage() {
           </div>
 
           <div className="pb-12 pt-4">
-            <FlightSearchInput
-              queryParams={router.query as FlightsQueryParams}
-            />
+            {flightData && <FlightSearchInput flightData={flightData} />}
           </div>
-          <div className="flex flex-row gap-6 items-center sm:mt-10">
-            <div className="border-gray rounded-lg border-2 border-solid p-4 flex overflow-y-scroll">
+          <div className="flex flex-row items-center gap-6 sm:mt-10">
+            <div className="border-gray flex overflow-y-scroll rounded-lg border-2 border-solid p-4">
               <FlightInfo />
             </div>
             <div className="sm:hidden">

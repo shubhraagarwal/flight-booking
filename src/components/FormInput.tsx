@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import { ChangeEvent, useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { FlightsQueryParams } from "types";
+import { FlightData } from "types";
 import AirportSearch from "./AirportSearch";
 
 function FormInput() {
@@ -19,7 +19,7 @@ function FormInput() {
   const [childrenCount, setChilrenCount] = useState<number>(0);
 
   function handleFlightsNavigation() {
-    const query: FlightsQueryParams = {
+    const flightData: FlightData = {
       from: fromLocation,
       to: toLocation,
       adults: adultCount,
@@ -28,7 +28,8 @@ function FormInput() {
       returnDate: returnDate?.toString(),
       roundTrip: String(roundTrip),
     };
-    router.push({ pathname: "/flights", query });
+    localStorage.setItem("flightData", JSON.stringify(flightData));
+    router.push({ pathname: "/flights" });
   }
 
   function tripType(e: ChangeEvent<HTMLInputElement>) {
@@ -67,13 +68,13 @@ function FormInput() {
     >
       <div className="flex flex-col justify-center">
         <div className="mb-10">
-          <h1 className="flex flex-col ml-4 font-['ubuntu'] text-5xl leading-relaxed text-white">
+          <h1 className="ml-4 flex flex-col font-['ubuntu'] text-5xl leading-relaxed text-white">
             Let the journey
             <span> begin....</span>
           </h1>
         </div>
-        <div className="xl:w-[96vw] flex items-center justify-center rounded-md bg-[#041950] p-10 md:bg-transparent">
-          <div className=" flex items-center rounded-md justify-center py-[1px] bg-white xl:flex-wrap xl:justify-center xl:bg-transparent xl:gap-2">
+        <div className="flex items-center justify-center rounded-md bg-[#041950] p-10 xl:w-[96vw] md:bg-transparent">
+          <div className=" flex items-center justify-center rounded-md bg-white py-[1px] xl:flex-wrap xl:justify-center xl:gap-2 xl:bg-transparent">
             <AirportSearch
               placeholder="From Where?"
               setLocation={setFromLocation}
@@ -88,7 +89,7 @@ function FormInput() {
                 dateFormat="dd/MM/yyyy"
                 className={
                   !roundTrip
-                    ? "border-r-2 py-2 px-2 w-44 focus:outline-0 md:rounded "
+                    ? "w-44 border-r-2 py-2 px-2 focus:outline-0 md:rounded "
                     : "w-[135px] border-r-2 p-2 focus:outline-0"
                 }
                 minDate={startDate}
@@ -261,7 +262,7 @@ function FormInput() {
             </div>
 
             <button
-              className="font-['Nunito_Sans'] align-center mr-[1px] w-[240px] h-12 rounded-r-md bg-[#007CFF] p-2 text-white xl:h-auto md:w-auto md:px-10 md:py-2 md:rounded"
+              className="align-center mr-[1px] h-12 w-[240px] rounded-r-md bg-[#007CFF] p-2 font-['Nunito_Sans'] text-white xl:h-auto md:w-auto md:rounded md:px-10 md:py-2"
               onClick={handleFlightsNavigation}
             >
               Search
