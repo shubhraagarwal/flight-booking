@@ -3,21 +3,12 @@ import { z } from "zod";
 //@ts-ignore
 import Amadeus from "amadeus";
 import { env } from "@/env/server.mjs";
-import { Flight, FlightData } from "types";
+import { Flight } from "types";
 
 const amadeus = new Amadeus({
   clientId: env.AMADEUS_KEY,
   clientSecret: env.AMADEUS_SECRET,
 });
-
-// const flightSearchSchema = z.object({
-//   originLocationCode: z.string(),
-//   destinationLocationCode: z.string(),
-//   departureDate: z
-//     .date()
-//     .transform((d) => `${d.getFullYear()}-${d.getMonth() + 1}-${d.getDate()}`),
-//   adults: z.string(),
-// });
 
 export const flightSearchSchema = z.object({
   from: z.string().transform((arg) => arg.split("-")[0]!.trim()),
@@ -32,6 +23,18 @@ export const flightSearchSchema = z.object({
           d
         ).getDate()}`
     ),
+  returnDate: z
+    .string()
+    .optional()
+    .transform((d) =>
+      d
+        ? `${new Date(d).getFullYear()}-${
+            new Date(d).getMonth() + 1 > 9
+              ? new Date(d).getMonth() + 1
+              : `0${new Date(d).getMonth() + 1}`
+          }-${new Date(d).getDate()}`
+        : undefined
+    ),
 });
 
 export const flightsRouter = router({
@@ -42,13 +45,15 @@ export const flightsRouter = router({
 
       try {
         console.log("fetching...");
-        console.log(input);
+        console.log(input.returnDate);
         const data = await amadeus.shopping.flightOffersSearch.get({
           originLocationCode: input.from,
           destinationLocationCode: input.to,
           departureDate: input.departureDate,
+          returnDate: input.returnDate,
           adults: input.adults,
           children: input.children,
+          currencyCode: "USD",
         });
         console.log(data.result.data);
         return { flights: data.result.data as Flight[] };
