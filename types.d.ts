@@ -7,7 +7,6 @@ export interface FlightData {
   children: number;
   departureDate: string | undefined;
   returnDate: string | undefined;
-  roundTrip: string;
 }
 
 export interface Departure {
