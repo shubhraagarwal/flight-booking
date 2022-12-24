@@ -1,7 +1,12 @@
 import { useState, useContext } from "react";
-import { AdultCountContext } from "@/pages/_app";
 
-function PassengerInfoForm() {
+function PassengerInfoForm({
+  index,
+  adultCount,
+}: {
+  index: number;
+  adultCount: number;
+}) {
   const [firstName, setFirstName] = useState<string>("");
   const [middleName, setMiddleName] = useState<string>("");
   const [knowles, setKnowles] = useState<string>("");
@@ -19,11 +24,9 @@ function PassengerInfoForm() {
   const [emergencyEmail, setEmergencyEmail] = useState<string>("");
   const [emergencyMobileNumber, setEmergencyMobileNumber] = useState<number>();
 
-  const PassengerCount = useContext(AdultCountContext);
   const PassengerDetailsArray = [];
 
-  const GlobalAdultCount = PassengerCount.GlobalAdultCount;
-  for (let i = 0; i < GlobalAdultCount; i++) {
+  for (let i = 0; i < adultCount; i++) {
     PassengerDetailsArray.push({
       x: "",
       y: "",
@@ -35,7 +38,7 @@ function PassengerInfoForm() {
   return (
     <form className="">
       <div className="flex flex-col gap-4">
-        <h2 className="font-medium">Passenger 1 Adult</h2>
+        <h2 className="font-medium">Passenger {index} Adult</h2>
         <div className="flex gap-2 lg:flex-wrap">
           {}
           <input
@@ -145,7 +148,15 @@ function PassengerInfoForm() {
       {PassengerDetailsArray.map((j, index) => (
         <div key={index}>
           <h3>Passenger {index + 2} Details</h3>
-          <input type="text" name="" id="" value={j.x} onChange={(e)=>{j.x = e.target.value}}/>
+          <input
+            type="text"
+            name=""
+            id=""
+            value={j.x}
+            onChange={(e) => {
+              j.x = e.target.value;
+            }}
+          />
         </div>
       ))}
 
@@ -162,7 +173,7 @@ function PassengerInfoForm() {
               setEmergencySame(!emergencySame);
             }}
           />
-          Same as Passenger 1
+          Same as Passenger {index}
         </label>
         <div className="flex gap-2">
           <input
