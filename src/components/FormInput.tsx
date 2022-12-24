@@ -1,12 +1,10 @@
-// http://localhost:3000/flights?from=BOM+-+MUMBAI&to=PNY+-+PONDICHERRY&departureDate=Sat+Dec+24+2022+00%3A00%3A00+GMT%2B0530+%28India+Standard+Time%29&returnDate=&roundTrip=undefined
 import { useRouter } from "next/router";
 import React, { useState, useContext } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { FlightsQueryParams } from "types";
+import { FlightData } from "types";
 import AirportSearch from "./AirportSearch";
 import { flightSearchSchema } from "./FormValidation";
-// import PassengerInfoForm from "./PassengerDetails/PassengerInfoForm";
 import { AdultCountContext } from "@/pages/_app";
 
 function FormInput() {
@@ -15,7 +13,6 @@ function FormInput() {
   const [toLocation, setToLocation] = useState("");
   const [departureDate, setDepartureDate] = useState<Date>();
   const [returnDate, setReturnDate] = useState<Date>();
-  const [roundTrip, setRoundTrip] = useState(false);
   const [showPassengerCountModal, setShowPassengerCountModal] =
     useState<boolean>(false);
   const [adultCount, setAdultCount] = useState<number>(1);
@@ -29,16 +26,16 @@ function FormInput() {
     const isValid = await flightSearchSchema.isValid(validation);
 
     if (isValid) {
-      const query: FlightsQueryParams = {
+      const flightData: FlightData = {
         from: fromLocation,
         to: toLocation,
         adults: adultCount,
         children: childrenCount,
         departureDate: departureDate?.toString(),
         returnDate: returnDate?.toString(),
-        roundTrip: String(roundTrip),
       };
-      router.push({ pathname: "/flights", query });
+      localStorage.setItem("flightData", JSON.stringify(flightData));
+      router.push({ pathname: "/flights" });
     } else {
       console.log("Please enter all fields correctly");
     }

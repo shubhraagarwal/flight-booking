@@ -1,5 +1,6 @@
 import { router, publicProcedure } from "../trpc";
 import { z } from "zod";
+//@ts-ignore
 import Amadeus from "amadeus";
 import { env } from "@/env/server.mjs";
 

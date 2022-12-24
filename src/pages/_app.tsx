@@ -11,7 +11,7 @@ import daisyuiColors from "daisyui/src/colors/themes";
 import { MantineProvider } from "@mantine/core";
 import { SessionProvider, SessionProviderProps } from "next-auth/react";
 
-export const AdultCountContext = createContext(0);
+export const AdultCountContext = createContext({});
 const MyApp: AppType<SessionProviderProps> = ({
   Component,
   pageProps: { session, ...pageProps },
