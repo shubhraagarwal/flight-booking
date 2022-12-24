@@ -26,9 +26,12 @@ function FlightInfoCard({ flights }: { flights: Flight[] }) {
           <div className="flex flex-col justify-around gap-4 text-left">
             <p>7:00AM - 4:15PM</p> <p>Value</p>
           </div>
-          <div className="flex flex-col justify-around gap-4 text-right">
-            <p>{flight.itineraries[0]?.segments.length - 1} stop</p> <p>2h 45m in HNL</p>
-          </div>
+          {flight.itineraries[0] && (
+            <div className="flex flex-col justify-around gap-4 text-right">
+              <p>{flight.itineraries[0]?.segments.length - 1} stop</p>{" "}
+              <p>2h 45m in HNL</p>
+            </div>
+          )}
           <div className="flex flex-col justify-around gap-4 text-right">
             <p>${flight.travelerPricings[0]?.price.total}</p> <p>single trip</p>
           </div>
