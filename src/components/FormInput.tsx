@@ -24,7 +24,6 @@ function FormInput() {
       toWhere: toLocation,
     };
     const isValid = await flightSearchSchema.isValid(validation);
-
     if (isValid) {
       const flightData: FlightData = {
         from: fromLocation,
