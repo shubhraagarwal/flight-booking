@@ -110,12 +110,10 @@ function PassengerInfoForm({
           <input
             placeholder="ID-Card Number"
             className="rounded-md border-2 p-2 sm:w-[135px]"
-            type="text"
-            name=""
-            id=""
+            type="number"
             value={idCardNumber}
             onChange={(e) => {
-              setIdCardNumber(parseInt(e.target.value));
+              setIdCardNumber(e.target.valueAsNumber);
             }}
           />
         </div>
@@ -134,12 +132,10 @@ function PassengerInfoForm({
           <input
             placeholder="Mobile Number"
             className="rounded-md border-2 p-2 sm:w-[135px]"
-            type="text"
-            name=""
-            id=""
+            type="number"
             value={mobileNumber}
             onChange={(e) => {
-              setMobileNumber(parseInt(e.target.value));
+              setMobileNumber(e.target.valueAsNumber);
             }}
           />
         </div>
