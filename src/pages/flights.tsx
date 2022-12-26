@@ -5,7 +5,7 @@ import Footer from "@/components/Footer";
 import FlightsCart from "@/components/FlightsCart";
 import Link from "next/link";
 import { FlightData } from "types";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { trpc } from "@/utils/trpc";
 import { z } from "zod";
 import { flightSearchSchema } from "@/server/trpc/router/flights";

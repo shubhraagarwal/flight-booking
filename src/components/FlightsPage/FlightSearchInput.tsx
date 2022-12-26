@@ -42,6 +42,8 @@ function FlightSearchInput({
       departureDate: departureDate?.toString(),
       returnDate: returnDate?.toString(),
     });
+    localStorage.setItem("adultCount", adultCountFlightsPage.toString());
+    localStorage.setItem("childrenCount", childrenCountFlightsPage.toString());
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     fromLocation,

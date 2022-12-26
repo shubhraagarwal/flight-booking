@@ -33,6 +33,8 @@ function FormInput() {
         returnDate: returnDate?.toString(),
       };
       localStorage.setItem("flightData", JSON.stringify(flightData));
+      localStorage.setItem("adultCount", adultCount.toString());
+      localStorage.setItem("childrenCount", childrenCount.toString());
       router.push({ pathname: "/flights" });
     } else {
       console.log("Please enter all fields correctly");

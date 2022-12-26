@@ -2,22 +2,18 @@ import FlightsCart from "@/components/FlightsCart";
 import Navbar from "@/components/Navbar";
 import LuggageInfo from "@/components/PassengerDetails/LuggageInfo";
 import PassengerInfoForm from "@/components/PassengerDetails/PassengerInfoForm";
-import { useEffect, useState } from "react";
-import { FlightData } from "types";
+import { useLocalStorage } from "@mantine/hooks";
 import Footer from "../components/Footer";
 
 function PassengerInfo() {
-  const [adultCount, setAdultCount] = useState(0);
-  const [childrenCount, setChildrenCount] = useState(0);
-
-  useEffect(() => {
-    const lcData = localStorage.getItem("flightData");
-    if (lcData) {
-      const flightData = JSON.parse(lcData) as FlightData;
-      setAdultCount(flightData.adults);
-      setChildrenCount(flightData.children);
-    }
-  }, []);
+  const [adultCount, setAdultCount] = useLocalStorage({
+    key: "adultCount",
+    defaultValue: 1,
+  });
+  const [childrenCount, setChildrenCount] = useLocalStorage({
+    key: "childrenCount",
+    defaultValue: 0,
+  });
 
   return (
     <main className="">
