@@ -1,11 +1,10 @@
 import { useRouter } from "next/router";
-import React, { useState, useContext } from "react";
+import { useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { FlightData } from "types";
 import AirportSearch from "./AirportSearch";
 import { flightSearchSchema } from "./FormValidation";
-import { AdultCountContext } from "@/pages/_app";
 
 function FormInput() {
   const router = useRouter();
@@ -45,10 +44,6 @@ function FormInput() {
     new Date().getMonth(),
     new Date().getDate()
   );
-
-  const AdultContext = useContext(AdultCountContext);
-  AdultContext.setGlobalAdultCount(adultCount);
-  console.log(AdultContext.GlobalAdultCount);
 
   return (
     <section
