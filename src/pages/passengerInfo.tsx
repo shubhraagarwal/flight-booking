@@ -33,10 +33,10 @@ function PassengerInfo() {
               </p>
             </div>
             <div className="">
-              {[...new Array(adultCount)].map((adult, i) => (
+              {[...new Array(adultCount)].map((a, i) => (
                 <PassengerInfoForm
                   adultCount={adultCount}
-                  key={adult}
+                  key={a}
                   index={i + 1}
                 />
               ))}
