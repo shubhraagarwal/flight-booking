@@ -19,7 +19,6 @@ function FlightSearchInput({
   const [returnDate, setReturnDate] = useState<Date | null>(
     flightData.returnDate ? new Date(flightData.returnDate) : null
   );
-  const [roundTrip, setRoundTrip] = useState(true);
   const [showPassengerCountModal, setShowPassengerCountModal] = useState(false);
   const [adultCountFlightsPage, setadultCountFlightsPage] = useState(
     flightData.adults
