@@ -1,4 +1,4 @@
-import { useState, useContext } from "react";
+import { useState, useContext, useRef } from "react";
 import { AdultCountContext } from "@/pages/_app";
 
 function PassengerInfoForm() {
@@ -32,6 +32,9 @@ function PassengerInfoForm() {
     });
   }
 console.log(...PassengerDetailsArray)
+
+  const DynamicFormEle = useRef(null);
+
   return (
     <form className="">
       <div className="flex flex-col gap-4">
@@ -141,7 +144,7 @@ console.log(...PassengerDetailsArray)
           />
         </div>
       </div>
-
+      <div id="dynamic" >
       {PassengerDetailsArray.map((PassengerDetail, index) => (
         <div key={index}>
           <h3>Passenger {index + 2} Details</h3>
@@ -171,7 +174,7 @@ console.log(...PassengerDetailsArray)
           />
         </div>
       ))}
-
+      </div>
       <div className="flex flex-col gap-4">
         <h2 className="mt-8 font-medium">Emergency contact information</h2>
         <label htmlFor="">

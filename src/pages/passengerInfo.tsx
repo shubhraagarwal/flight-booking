@@ -1,7 +1,7 @@
 import FlightsCart from "@/components/FlightsCart";
 import Navbar from "@/components/Navbar";
 import LuggageInfo from "@/components/PassengerDetails/LuggageInfo";
-import PassengerInfoForm from "@/components/PassengerDetails/PassengerInfoForm";
+import PassengerInfoForm from "@/components/PassengerDetails/PassengerInfoForm1";
 import Footer from "../components/Footer";
 
 function passengerInfo() {
