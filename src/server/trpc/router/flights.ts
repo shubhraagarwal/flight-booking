@@ -1,40 +1,14 @@
 import { router, publicProcedure } from "../trpc";
-import { z } from "zod";
 //@ts-ignore
 import Amadeus from "amadeus";
 import { env } from "@/env/server.mjs";
 import { Flight } from "types";
+import { flightBookingSchema } from "@/schemas/flightBookingSchema";
+import { flightSearchSchema } from "@/schemas/flightSearchSchema";
 
 const amadeus = new Amadeus({
   clientId: env.AMADEUS_KEY,
   clientSecret: env.AMADEUS_SECRET,
-});
-
-export const flightSearchSchema = z.object({
-  from: z.string().transform((arg) => arg.split("-")[0]!.trim()),
-  to: z.string().transform((arg) => arg.split("-")[0]!.trim()),
-  adults: z.number(),
-  children: z.number(),
-  departureDate: z
-    .string()
-    .transform(
-      (d) =>
-        `${new Date(d).getFullYear()}-${new Date(d).getMonth() + 1}-${new Date(
-          d
-        ).getDate()}`
-    ),
-  returnDate: z
-    .string()
-    .optional()
-    .transform((d) =>
-      d
-        ? `${new Date(d).getFullYear()}-${
-            new Date(d).getMonth() + 1 > 9
-              ? new Date(d).getMonth() + 1
-              : `0${new Date(d).getMonth() + 1}`
-          }-${new Date(d).getDate()}`
-        : undefined
-    ),
 });
 
 export const flightsRouter = router({
@@ -60,6 +34,27 @@ export const flightsRouter = router({
       } catch (err) {
         console.error(err);
         return { flights: null };
+      }
+    }),
+
+  booking: publicProcedure
+    .input(flightBookingSchema)
+    .mutation(async ({ input }) => {
+      try {
+        const booking = await amadeus.booking.flightOrders.post(
+          JSON.stringify({
+            data: {
+              type: "flight-order",
+              flightOffers: [input.flightOffer],
+              travelers: input.travelers,
+            },
+          })
+        );
+        return { booking };
+      } catch (err) {
+        console.log("error while booking flight");
+        console.error(err);
+        return null;
       }
     }),
 });
