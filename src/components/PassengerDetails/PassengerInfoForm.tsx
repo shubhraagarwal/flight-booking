@@ -1,7 +1,13 @@
 import { useState, useContext } from "react";
-import { AdultCountContext } from "@/pages/_app";
+import { changeDetailsContext } from "@/pages/passengerInfo";
 
-function PassengerInfoForm() {
+function PassengerInfoForm({
+  index,
+  adultCount,
+}: {
+  index: number;
+  adultCount: number;
+}) {
   const [firstName, setFirstName] = useState<string>("");
   const [middleName, setMiddleName] = useState<string>("");
   const [knowles, setKnowles] = useState<string>("");
@@ -19,23 +25,21 @@ function PassengerInfoForm() {
   const [emergencyEmail, setEmergencyEmail] = useState<string>("");
   const [emergencyMobileNumber, setEmergencyMobileNumber] = useState<number>();
 
-  const [PassengerDetailState, setPassengerDetailState] = useState([]);
-
-  const PassengerCount = useContext(AdultCountContext);
+  const [PassengerDetailState, setPassengerDetailState] = useState<any[]>([]);
+  const changeDetailsState = useContext(changeDetailsContext)
   const PassengerDetailsArray = [];
 
-  const GlobalAdultCount = PassengerCount.GlobalAdultCount;
-  for (let i = 0; i < GlobalAdultCount; i++) {
+  for (let i = 0; i < adultCount; i++) {
     PassengerDetailsArray.push({
       x: "",
       y: "",
     });
   }
-console.log(...PassengerDetailsArray)
+  console.log(...PassengerDetailsArray);
   return (
     <form className="">
       <div className="flex flex-col gap-4">
-        <h2 className="font-medium">Passenger 1 Adult</h2>
+        <h2 className="font-medium">Passenger {index} Adult</h2>
         <div className="flex gap-2 lg:flex-wrap">
           {}
           <input
@@ -107,12 +111,10 @@ console.log(...PassengerDetailsArray)
           <input
             placeholder="ID-Card Number"
             className="rounded-md border-2 p-2 sm:w-[135px]"
-            type="text"
-            name=""
-            id=""
+            type="number"
             value={idCardNumber}
             onChange={(e) => {
-              setIdCardNumber(parseInt(e.target.value));
+              setIdCardNumber(e.target.valueAsNumber);
             }}
           />
         </div>
@@ -131,12 +133,10 @@ console.log(...PassengerDetailsArray)
           <input
             placeholder="Mobile Number"
             className="rounded-md border-2 p-2 sm:w-[135px]"
-            type="text"
-            name=""
-            id=""
+            type="number"
             value={mobileNumber}
             onChange={(e) => {
-              setMobileNumber(parseInt(e.target.value));
+              setMobileNumber(e.target.valueAsNumber);
             }}
           />
         </div>
@@ -152,8 +152,8 @@ console.log(...PassengerDetailsArray)
             className="rounded-md border-2 p-2 sm:w-[135px]"
             value={PassengerDetailState[index]?.x}
             onChange={(e) => {
-              PassengerDetail.x = e.target.value;
-              setPassengerDetailState(PassengerDetailsArray);
+              // PassengerDetail.x = e.target.value;
+              setPassengerDetailState([...PassengerDetailState, {x: e.target.value, y: ""}]);
               console.log(PassengerDetailState);
             }}
           />
@@ -164,8 +164,8 @@ console.log(...PassengerDetailsArray)
             className="rounded-md border-2 p-2 sm:w-[135px]"
             value={PassengerDetailState[index]?.y}
             onChange={(e) => {
-              PassengerDetail.y = e.target.value;
-              setPassengerDetailState(PassengerDetailsArray);
+              // PassengerDetail.y = e.target.value;
+              setPassengerDetailState([...PassengerDetailState, {x: "", y: e.target.value}]);
               console.log(PassengerDetailState);
             }}
           />
@@ -185,7 +185,7 @@ console.log(...PassengerDetailsArray)
               setEmergencySame(!emergencySame);
             }}
           />
-          Same as Passenger 1
+          Same as Passenger {index}
         </label>
         <div className="flex gap-2">
           <input

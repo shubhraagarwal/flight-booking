@@ -29,12 +29,9 @@ function Navbar() {
           <span className="cursor-pointer">Home</span>
           <span className="cursor-pointer">Contact Us</span>
           <span className="cursor-pointer">About Us</span>
-          <Link href="/auth/sign-in">
-            <button>Sign in</button>
-          </Link>
-          <Link href="/auth/sign-up">
+          <Link href="/myBookings">
             <button className="rounded bg-[#007CFF] p-4 text-white">
-              Sign up
+              My Bookings
             </button>
           </Link>
         </div>

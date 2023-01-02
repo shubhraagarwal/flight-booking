@@ -1,11 +1,10 @@
 import { useRouter } from "next/router";
-import React, { useState, useContext } from "react";
+import { useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { FlightData } from "types";
 import AirportSearch from "./AirportSearch";
 import { flightSearchSchema } from "./FormValidation";
-import { AdultCountContext } from "@/pages/_app";
 
 function FormInput() {
   const router = useRouter();
@@ -34,6 +33,8 @@ function FormInput() {
         returnDate: returnDate?.toString(),
       };
       localStorage.setItem("flightData", JSON.stringify(flightData));
+      localStorage.setItem("adultCount", adultCount.toString());
+      localStorage.setItem("childrenCount", childrenCount.toString());
       router.push({ pathname: "/flights" });
     } else {
       console.log("Please enter all fields correctly");
@@ -45,10 +46,6 @@ function FormInput() {
     new Date().getMonth(),
     new Date().getDate()
   );
-
-  const AdultContext = useContext(AdultCountContext);
-  AdultContext.setGlobalAdultCount(adultCount);
-  console.log(AdultContext.GlobalAdultCount);
 
   return (
     <section
@@ -75,7 +72,7 @@ function FormInput() {
 
             <div className="flex">
               <DatePicker
-                dateFormat="dd/MM/yyyy"
+                dateFormat="yyyy/MM/dd"
                 className="w-[135px] border-r-2 p-2 focus:outline-0"
                 minDate={startDate}
                 placeholderText="Departure date"
@@ -83,7 +80,7 @@ function FormInput() {
                 onChange={(date) => setDepartureDate(date || new Date())}
               />
               <DatePicker
-                dateFormat="dd/MM/yyyy"
+                dateFormat="yyyy/MM/dd"
                 minDate={!departureDate ? startDate : departureDate}
                 className="w-[135px] border-r-2 p-2 focus:outline-0"
                 placeholderText="Return date"
