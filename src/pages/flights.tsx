@@ -56,7 +56,7 @@ export default function FlightsPage() {
             />
           </div>
           <div className="flex flex-row items-center gap-6 sm:mt-10">
-            <div className="border-gray flex overflow-y-scroll rounded-lg border-2 border-solid p-4">
+            <div className="">
               {isLoading ? (
                 <div>Loading</div>
               ) : data ? (
@@ -65,9 +65,7 @@ export default function FlightsPage() {
                 <div>No Flights right now</div>
               )}
             </div>
-            <div className="sm:hidden">
-              <FlightsCart />
-            </div>
+            
           </div>
         </div>
       </section>

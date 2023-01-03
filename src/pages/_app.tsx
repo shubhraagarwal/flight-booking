@@ -11,17 +11,17 @@ import daisyuiColors from "daisyui/src/colors/themes";
 import { MantineProvider } from "@mantine/core";
 import { SessionProvider, SessionProviderProps } from "next-auth/react";
 
-export const AdultCountContext = createContext({});
+export const connectingFlightContext = createContext({});
 const MyApp: AppType<SessionProviderProps> = ({
   Component,
   pageProps: { session, ...pageProps },
 }) => {
-  const [GlobalAdultCount, setGlobalAdultCount] = useState(2);
+  const [connectingFlightData, setconnectingFlightData] = useState();
 
   return (
     <>
-      <AdultCountContext.Provider
-        value={{ GlobalAdultCount, setGlobalAdultCount }}
+      <connectingFlightContext.Provider
+        value={{ connectingFlightData, setconnectingFlightData }}
       >
         <SessionProvider session={session}>
           <NextNProgress
@@ -40,7 +40,7 @@ const MyApp: AppType<SessionProviderProps> = ({
             <Component {...pageProps} />
           </MantineProvider>
         </SessionProvider>
-      </AdultCountContext.Provider>
+      </connectingFlightContext.Provider>
     </>
   );
 };
