@@ -6,13 +6,13 @@ import { z } from "zod";
  * This way you can ensure the app isn't built with invalid env vars.
  */
 export const serverSchema = z.object({
-  DATABASE_URL: z.string().url(),
+  DATABASE_URL: z.string().url().optional(),
   NODE_ENV: z.enum(["development", "test", "production"]),
   AMADEUS_URL: z.string().url(),
   AMADEUS_KEY: z.string(),
   AMADEUS_SECRET: z.string(),
-  JWT_SECRET: z.string(),
-  NEXTAUTH_URL: z.string(),
+  JWT_SECRET: z.string().optional(),
+  NEXTAUTH_URL: z.string().optional(),
 });
 
 /**

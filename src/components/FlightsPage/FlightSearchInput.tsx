@@ -1,4 +1,4 @@
-import { ChangeEvent, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { FlightData } from "types";
@@ -8,24 +8,23 @@ function FlightSearchInput({
   flightData,
   setFlightData,
 }: {
-  flightData: FlightData;
+  flightData: FlightData | null;
   setFlightData: (fd: FlightData) => void;
 }) {
-  const [fromLocation, setFromLocation] = useState(flightData.from);
-  const [toLocation, setToLocation] = useState(flightData.to);
+  const [fromLocation, setFromLocation] = useState(flightData?.from || "");
+  const [toLocation, setToLocation] = useState(flightData?.to || "");
   const [departureDate, setDepartureDate] = useState<Date | null>(
-    flightData.departureDate ? new Date(flightData.departureDate) : null
+    flightData?.departureDate ? new Date(flightData?.departureDate) : null
   );
   const [returnDate, setReturnDate] = useState<Date | null>(
-    flightData.returnDate ? new Date(flightData.returnDate) : null
+    flightData?.returnDate ? new Date(flightData?.returnDate) : null
   );
-  const [roundTrip, setRoundTrip] = useState(true);
   const [showPassengerCountModal, setShowPassengerCountModal] = useState(false);
   const [adultCountFlightsPage, setadultCountFlightsPage] = useState(
-    flightData.adults
+    flightData?.adults || 1
   );
   const [childrenCountFlightsPage, setchildrenCountFlightsPage] = useState(
-    flightData.children
+    flightData?.children || 0
   );
 
   // useEffect(() => {
@@ -43,6 +42,8 @@ function FlightSearchInput({
       departureDate: departureDate?.toString(),
       returnDate: returnDate?.toString(),
     });
+    localStorage.setItem("adultCount", adultCountFlightsPage.toString());
+    localStorage.setItem("childrenCount", childrenCountFlightsPage.toString());
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     fromLocation,
@@ -57,33 +58,19 @@ function FlightSearchInput({
     localStorage.setItem("flightData", JSON.stringify(flightData));
   }, [flightData]);
 
-  function tripType(e: ChangeEvent<HTMLInputElement>) {
-    if (e.target.value === "roundTripType") {
-      setRoundTrip(true);
-    } else if (e.target.value === "oneWayTripType") {
-      setRoundTrip(false);
-    }
-  }
+  // function tripType(e: ChangeEvent<HTMLInputElement>) {
+  //   if (e.target.value === "roundTripType") {
+  //     setRoundTrip(true);
+  //   } else if (e.target.value === "oneWayTripType") {
+  //     setRoundTrip(false);
+  //   }
+  // }
   const startDate = new Date(
     new Date().getFullYear(),
     new Date().getMonth(),
     new Date().getDate()
   );
 
-  const months = [
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December",
-  ];
   return (
     <div className="flex h-[50px] w-[65vw] items-center rounded-md bg-white lg:mb-4 lg:w-screen lg:flex-wrap lg:justify-center lg:gap-2">
       <div className={`flex w-[25vw] flex-row lg:w-auto lg:gap-2`}>
@@ -101,82 +88,23 @@ function FlightSearchInput({
 
       <div className="flex items-center lg:gap-2">
         <DatePicker
-          dateFormat="dd/MM/yyyy"
-          className={
-            !roundTrip
-              ? "w-44 border-2 py-2 px-2 focus:outline-0 md:rounded "
-              : "w-[135px] border-2 p-2 focus:outline-0"
-          }
+          dateFormat="yyyy/MM/dd"
+          className="w-[135px] border-2 p-2 focus:outline-0"
           minDate={startDate}
           placeholderText="Departure date"
           selected={departureDate}
           onChange={(date) => setDepartureDate(date || new Date())}
-          renderCustomHeader={({
-            date,
-            decreaseMonth,
-            increaseMonth,
-            prevMonthButtonDisabled,
-            nextMonthButtonDisabled,
-          }) => {
-            return (
-              <div className="flex flex-col gap-2 p-[8px] font-[Ubuntu] text-sm">
-                <div className="flex flex-row items-center justify-evenly">
-                  <label htmlFor="">
-                    <input
-                      type="radio"
-                      name="trip-type"
-                      id=""
-                      value={"roundTripType"}
-                      onChange={tripType}
-                    />{" "}
-                    Round Trip
-                  </label>
-                  <label htmlFor="">
-                    <input
-                      type="radio"
-                      name="trip-type"
-                      id=""
-                      value={"oneWayTripType"}
-                      onChange={tripType}
-                    />{" "}
-                    One Way
-                  </label>
-                </div>
-
-                <div className="flex flex-row items-center justify-around text-base">
-                  <button
-                    onClick={decreaseMonth}
-                    disabled={prevMonthButtonDisabled}
-                  >
-                    {"<"}
-                  </button>
-                  <div className="flex flex-row gap-4">
-                    <p className="font-bold">{months[date.getMonth()]}</p>
-                    <p className="font-bold">{date.getFullYear()}</p>
-                  </div>
-                  <button
-                    onClick={increaseMonth}
-                    disabled={nextMonthButtonDisabled}
-                  >
-                    {">"}
-                  </button>
-                </div>
-              </div>
-            );
-          }}
         />
         <DatePicker
-          dateFormat="dd/MM/yyyy"
+          dateFormat="yyyy/MM/dd"
           minDate={!departureDate ? startDate : departureDate}
-          className={
-            !roundTrip ? "hidden" : "w-[135px] border-2 p-2 focus:outline-0"
-          }
+          className="w-[135px] border-2 p-2 focus:outline-0"
           placeholderText="Return date"
           selected={returnDate}
           onChange={(date) => setReturnDate(date || new Date())}
         />
       </div>
-      <div className="lg:border-2">
+      <div className="border-2">
         <button
           onClick={() => {
             setShowPassengerCountModal(!showPassengerCountModal);
@@ -272,7 +200,7 @@ function FlightSearchInput({
         </div>
       </div>
 
-      <button className="align-center mr-[1px] h-12 w-[120px] rounded-r-md bg-[#007CFF] p-2 text-white xl:h-auto md:hidden">
+      <button className="align-center mr-[1px] w-[120px] rounded-r-md border-2 border-transparent bg-[#007CFF] p-2 text-white xl:h-auto md:hidden">
         Search
       </button>
     </div>

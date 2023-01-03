@@ -4,7 +4,7 @@ import { useState } from "react";
 function Navbar() {
   const [showNav, setShowNav] = useState(false);
   return (
-    <nav className="flex h-[120px] w-screen flex-row items-center justify-between px-8 font-['Nunito_Sans'] lg:h-auto lg:px-0 lg:flex-col-reverse lg:justify-center">
+    <nav className="flex h-[120px] w-screen flex-row items-center justify-between pr-8 font-['Nunito_Sans'] lg:h-auto lg:px-0 lg:flex-col-reverse lg:justify-center">
       <div className="lg:ml-8">
         <img src="/images/logo.png" alt="" />
       </div>
@@ -29,12 +29,9 @@ function Navbar() {
           <span className="cursor-pointer">Home</span>
           <span className="cursor-pointer">Contact Us</span>
           <span className="cursor-pointer">About Us</span>
-          <Link href="/auth/sign-in">
-            <button>Sign in</button>
-          </Link>
-          <Link href="/auth/sign-up">
+          <Link href="/myBookings">
             <button className="rounded bg-[#007CFF] p-4 text-white">
-              Sign up
+              My Bookings
             </button>
           </Link>
         </div>
