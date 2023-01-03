@@ -1,7 +1,7 @@
 import Navbar from "@/components/Navbar";
 import { useState } from "react";
 
-function myBookings() {
+function MyBookings() {
     const [emailInput, setEmailInput] = useState("")
     const [lastName, setLastName] = useState("")
     const [PNR, setPNR] = useState()
@@ -54,4 +54,4 @@ function myBookings() {
   );
 }
 
-export default myBookings;
+export default MyBookings;

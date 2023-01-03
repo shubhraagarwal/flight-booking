@@ -1,6 +1,9 @@
 import { Flight } from "types";
+import { useState } from "react";
 
 function FlightInfo({ flights }: { flights: Flight[] }) {
+  const [x, setx] = useState("")
+
   return (
     <section className="max-h-[50vh] w-[60vw] sm:w-[90vw]">
       <FlightInfoCard flights={flights} />
