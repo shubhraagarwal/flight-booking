@@ -28,7 +28,7 @@ export default function FlightsPage() {
       <section className="mb-20 flex flex-row items-center justify-evenly sm:w-screen">
         <div className="">
           <div className="my-4 flex justify-end sm:justify-center">
-            <Link href={!flightData?.returnDate ? "/passengerInfo" : "returnFlight"}>
+            <Link href={"/passengerInfo"}>
               <button className="rounded-md bg-[#007CFF] px-8 py-4 text-white md:mr-4">
                 Next
               </button>
@@ -59,7 +59,7 @@ export default function FlightsPage() {
               {isLoading ? (
                 <div>Loading</div>
               ) : data ? (
-                <FlightInfo flights={data.flights!} x={0}/>
+                <FlightInfo flights={data.flights!} x={1}/>
               ) : (
                 <div>No Flights right now</div>
               )}
