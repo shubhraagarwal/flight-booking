@@ -1,4 +1,3 @@
-import { Flight } from "types";
 import { useContext } from "react";
 import { connectingFlightContext } from "@/pages/_app";
 import FlightsCart from "../FlightsCart";
