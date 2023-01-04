@@ -29,7 +29,8 @@
     "**/*.mjs",
     "src/components/FormInput.jsx",
     "./types.d.ts",
-    "src/components/FlightsCart.jsx"
+    "src/components/FlightsCart.jsx",
+    "src/components/FlightsPage/FlightInfo.jsx"
   ],
   "exclude": ["node_modules", "types"]
 }

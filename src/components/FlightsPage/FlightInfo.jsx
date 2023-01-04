@@ -3,7 +3,7 @@ import { useContext } from "react";
 import { connectingFlightContext } from "@/pages/_app";
 import FlightsCart from "../FlightsCart";
 
-function FlightInfo({ flights }: { flights: Flight[] }) {
+function FlightInfo({ flights }) {
   console.log(flights);
   return (
     <main className="flex flex-row items-center gap-20">
@@ -17,7 +17,7 @@ function FlightInfo({ flights }: { flights: Flight[] }) {
   );
 }
 
-function FlightInfoCard({ flights }: { flights: Flight[] }) {
+function FlightInfoCard({ flights }) {
   const connectingFlights = useContext(connectingFlightContext);
   return (
     <>
