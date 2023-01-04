@@ -3,6 +3,7 @@ import { useContext } from "react";
 
 function FlightsCart() {
   const connectingFlights = useContext(connectingFlightContext);
+  // @ts-ignore
   const connectingFlightData = connectingFlights.connectingFlightData;
 
   function convertDate(date) {

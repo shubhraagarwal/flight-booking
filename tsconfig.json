@@ -28,7 +28,8 @@
     "**/*.cjs",
     "**/*.mjs",
     "src/components/FormInput.jsx",
-    "./types.d.ts"
+    "./types.d.ts",
+    "src/components/FlightsCart.jsx"
   ],
   "exclude": ["node_modules", "types"]
 }
