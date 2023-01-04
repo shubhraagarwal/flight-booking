@@ -30,7 +30,8 @@
     "src/components/FormInput.jsx",
     "./types.d.ts",
     "src/components/FlightsCart.jsx",
-    "src/components/FlightsPage/FlightInfo.jsx"
+    "src/components/FlightsPage/FlightInfo.jsx",
+    "src/pages/MyBookings.jsx"
   ],
   "exclude": ["node_modules", "types"]
 }
