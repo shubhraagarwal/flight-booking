@@ -1,3 +1,5 @@
+/* eslint-disable @next/next/no-img-element */
+
 import Link from "next/link";
 import { useState } from "react";
 
@@ -6,7 +8,7 @@ function Navbar() {
   return (
     <nav className="flex h-[120px] w-screen flex-row items-center justify-between pr-8 font-['Nunito_Sans'] lg:h-auto lg:px-0 lg:flex-col-reverse lg:justify-center">
       <div className="lg:ml-8">
-        <img src="/images/logo.png" alt="" />
+        <img src="/images/logo.png" alt="Logo" />
       </div>
       <div className="flex flex-col">
         <div className="hidden p-4 lg:flex lg:w-screen lg:justify-end">

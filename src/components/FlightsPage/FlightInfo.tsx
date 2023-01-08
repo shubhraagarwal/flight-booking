@@ -1,3 +1,5 @@
+/* eslint-disable @next/next/no-img-element */
+
 import { Flight } from "types";
 import { useContext } from "react";
 import { connectingFlightContext } from "@/pages/_app";
@@ -48,7 +50,7 @@ function FlightInfoCard({ flights, y }: { flights: Flight[], y:number }) {
                   .slice(11, 16) +
                   " - " +
                   flight.itineraries[y]?.segments[
-                    flight.itineraries[y]?.segments.length - 1
+                    flight.itineraries[y]!.segments.length - 1
                   ]?.arrival.at
                     .toString()
                     .slice(11, 16)}
@@ -56,7 +58,7 @@ function FlightInfoCard({ flights, y }: { flights: Flight[], y:number }) {
             </div>
             {flight.itineraries[y] && (
               <div className="flex flex-col justify-around gap-4 text-right">
-                <p>{flight.itineraries[y]?.segments.length - 1} stop</p>
+                <p>{flight.itineraries[y]!.segments.length - 1} stop</p>
               </div>
             )}
             <div className="flex flex-col justify-around gap-4 text-right">
