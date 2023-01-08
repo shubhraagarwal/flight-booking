@@ -9,12 +9,14 @@ import { trpc } from "@/utils/trpc";
 import { z } from "zod";
 import { flightSearchSchema } from "@/server/trpc/router/flights";
 
+
 export default function FlightsPage() {
+  const ISSERVER = typeof window === "undefined";
   const [flightData, setFlightData] = useState<FlightData | null>(
-    !localStorage.getItem("flightData")
+    !ISSERVER ? !localStorage.getItem("flightData")
       ? null
       : JSON.parse(localStorage.getItem("flightData")!)
-  );
+  : {});
   const { data, isLoading } = trpc.flights.search.useQuery(
     flightData as z.infer<typeof flightSearchSchema>
   );
