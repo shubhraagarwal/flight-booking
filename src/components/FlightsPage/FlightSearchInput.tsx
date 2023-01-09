@@ -31,7 +31,7 @@ function FlightSearchInput({
   //   console.log("dep date changed");
   //   console.log(flightData);
   // }, [departureDate]);
-
+  const ISSERVER = typeof window === "undefined";
   useEffect(() => {
     setFlightData({
       ...flightData,
@@ -42,8 +42,8 @@ function FlightSearchInput({
       departureDate: departureDate?.toString(),
       returnDate: returnDate?.toString(),
     });
-    localStorage.setItem("adultCount", adultCountFlightsPage.toString());
-    localStorage.setItem("childrenCount", childrenCountFlightsPage.toString());
+    !ISSERVER ? localStorage.setItem("adultCount", adultCountFlightsPage.toString()) : {};
+    !ISSERVER ? localStorage.setItem("childrenCount", childrenCountFlightsPage.toString()) : {};
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     fromLocation,

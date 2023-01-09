@@ -1,3 +1,5 @@
+/* eslint-disable @next/next/no-img-element */
+
 import { connectingFlightContext } from "@/pages/_app";
 import { useContext } from "react";
 

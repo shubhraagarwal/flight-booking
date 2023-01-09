@@ -4,7 +4,7 @@ import { useState } from "react";
 function MyBookings() {
     const [emailInput, setEmailInput] = useState("")
     const [lastName, setLastName] = useState("")
-    const [PNR, setPNR] = useState()
+    const [PNR, setPNR] = useState<any>()
   return (
     <>
       <Navbar />

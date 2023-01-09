@@ -11,12 +11,12 @@ import daisyuiColors from "daisyui/src/colors/themes";
 import { MantineProvider } from "@mantine/core";
 import { SessionProvider, SessionProviderProps } from "next-auth/react";
 
-export const connectingFlightContext = createContext({});
+export const connectingFlightContext = createContext<any>({});
 const MyApp: AppType<SessionProviderProps> = ({
   Component,
   pageProps: { session, ...pageProps },
 }) => {
-  const [connectingFlightData, setconnectingFlightData] = useState();
+  const [connectingFlightData, setconnectingFlightData] = useState<any>();
 
   return (
     <>
