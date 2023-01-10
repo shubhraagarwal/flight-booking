@@ -9,9 +9,11 @@ export const flightSearchSchema = z.object({
     .string()
     .transform(
       (d) =>
-        `${new Date(d).getFullYear()}-${new Date(d).getMonth() + 1}-${new Date(
-          d
-        ).getDate()}`
+        `${new Date(d).getFullYear()}-${
+          new Date(d).getMonth() + 1 > 9
+            ? new Date(d).getMonth() + 1
+            : `0${new Date(d).getMonth() + 1}`
+        }-${new Date(d).getDate()}`
     ),
   returnDate: z
     .string()
