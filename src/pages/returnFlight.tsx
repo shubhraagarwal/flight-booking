@@ -61,7 +61,7 @@ export default function FlightsPage() {
               {isLoading ? (
                 <div>Loading</div>
               ) : data ? (
-                <FlightInfo flights={data.flights!} x={1}/>
+                <FlightInfo flights={data.flights!} returnFlightIndex={1}/>
               ) : (
                 <div>No Flights right now</div>
               )}
