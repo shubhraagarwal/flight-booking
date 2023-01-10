@@ -1,4 +1,5 @@
 import { useState, useContext } from "react";
+import { changeDetailsContext } from "@/pages/passengerInfo";
 
 function PassengerInfoForm({
   index,
@@ -24,6 +25,8 @@ function PassengerInfoForm({
   const [emergencyEmail, setEmergencyEmail] = useState<string>("");
   const [emergencyMobileNumber, setEmergencyMobileNumber] = useState<number>();
 
+  const [PassengerDetailState, setPassengerDetailState] = useState<any[]>([]);
+  const changeDetailsState = useContext(changeDetailsContext)
   const PassengerDetailsArray = [];
 
   for (let i = 0; i < adultCount; i++) {
@@ -32,9 +35,7 @@ function PassengerInfoForm({
       y: "",
     });
   }
-
-  console.log(PassengerDetailsArray);
-
+  console.log(...PassengerDetailsArray);
   return (
     <form className="">
       <div className="flex flex-col gap-4">
@@ -141,16 +142,31 @@ function PassengerInfoForm({
         </div>
       </div>
 
-      {PassengerDetailsArray.map((j, index) => (
+      {PassengerDetailsArray.map((PassengerDetail, index) => (
         <div key={index}>
           <h3>Passenger {index + 2} Details</h3>
           <input
             type="text"
             name=""
             id=""
-            value={j.x}
+            className="rounded-md border-2 p-2 sm:w-[135px]"
+            value={PassengerDetailState[index]?.x}
             onChange={(e) => {
-              j.x = e.target.value;
+              // PassengerDetail.x = e.target.value;
+              setPassengerDetailState([...PassengerDetailState, {x: e.target.value, y: ""}]);
+              console.log(PassengerDetailState);
+            }}
+          />
+          <input
+            type="text"
+            name=""
+            id=""
+            className="rounded-md border-2 p-2 sm:w-[135px]"
+            value={PassengerDetailState[index]?.y}
+            onChange={(e) => {
+              // PassengerDetail.y = e.target.value;
+              setPassengerDetailState([...PassengerDetailState, {x: "", y: e.target.value}]);
+              console.log(PassengerDetailState);
             }}
           />
         </div>

@@ -1,3 +1,5 @@
+/* eslint-disable @next/next/no-img-element */
+
 function PriceBreakdown() {
   return (
     <section className="mt-10 flex flex-row items-center justify-between mb-20">

@@ -31,7 +31,7 @@ function FlightSearchInput({
   //   console.log("dep date changed");
   //   console.log(flightData);
   // }, [departureDate]);
-
+  const ISSERVER = typeof window === "undefined";
   useEffect(() => {
     setFlightData({
       ...flightData,
@@ -42,8 +42,8 @@ function FlightSearchInput({
       departureDate: departureDate?.toString(),
       returnDate: returnDate?.toString(),
     });
-    localStorage.setItem("adultCount", adultCountFlightsPage.toString());
-    localStorage.setItem("childrenCount", childrenCountFlightsPage.toString());
+    !ISSERVER ? localStorage.setItem("adultCount", adultCountFlightsPage.toString()) : {};
+    !ISSERVER ? localStorage.setItem("childrenCount", childrenCountFlightsPage.toString()) : {};
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     fromLocation,
@@ -88,7 +88,7 @@ function FlightSearchInput({
 
       <div className="flex items-center lg:gap-2">
         <DatePicker
-          dateFormat="dd/MM/yyyy"
+          dateFormat="yyyy/MM/dd"
           className="w-[135px] border-2 p-2 focus:outline-0"
           minDate={startDate}
           placeholderText="Departure date"
@@ -96,7 +96,7 @@ function FlightSearchInput({
           onChange={(date) => setDepartureDate(date || new Date())}
         />
         <DatePicker
-          dateFormat="dd/MM/yyyy"
+          dateFormat="yyyy/MM/dd"
           minDate={!departureDate ? startDate : departureDate}
           className="w-[135px] border-2 p-2 focus:outline-0"
           placeholderText="Return date"

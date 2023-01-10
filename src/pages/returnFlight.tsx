@@ -4,30 +4,22 @@ import FlightInfo from "@/components/FlightsPage/FlightInfo";
 import Footer from "@/components/Footer";
 import Link from "next/link";
 import { FlightData } from "types";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { trpc } from "@/utils/trpc";
 import { z } from "zod";
 import { flightSearchSchema } from "@/server/trpc/router/flights";
 
-export default function FlightsPage() {
 
+export default function FlightsPage() {
   const ISSERVER = typeof window === "undefined";
   const [flightData, setFlightData] = useState<FlightData | null>(
-    !ISSERVER ?  !localStorage.getItem("flightData")
+    !ISSERVER ? !localStorage.getItem("flightData")
       ? null
       : JSON.parse(localStorage.getItem("flightData")!)
   : {});
-
   const { data, isLoading } = trpc.flights.search.useQuery(
     flightData as z.infer<typeof flightSearchSchema>
   );
-
-  useEffect(() => {
-    const lcData = localStorage.getItem("flightData");
-    if (lcData) {
-      setFlightData(JSON.parse(lcData))
-    }
-  }, []);
 
   // console.log({ flightData });
 
@@ -38,7 +30,7 @@ export default function FlightsPage() {
       <section className="mb-20 flex flex-row items-center justify-evenly sm:w-screen">
         <div className="">
           <div className="my-4 flex justify-end sm:justify-center">
-            <Link href={!flightData?.returnDate ? "/passengerInfo" : "returnFlight"}>
+            <Link href={"/passengerInfo"}>
               <button className="rounded-md bg-[#007CFF] px-8 py-4 text-white md:mr-4">
                 Next
               </button>
@@ -69,7 +61,7 @@ export default function FlightsPage() {
               {isLoading ? (
                 <div>Loading</div>
               ) : data ? (
-                <FlightInfo flights={data.flights!} x={0}/>
+                <FlightInfo flights={data.flights!} x={1}/>
               ) : (
                 <div>No Flights right now</div>
               )}

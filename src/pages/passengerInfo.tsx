@@ -4,6 +4,9 @@ import LuggageInfo from "@/components/PassengerDetails/LuggageInfo";
 import PassengerInfoForm from "@/components/PassengerDetails/PassengerInfoForm";
 import { useLocalStorage } from "@mantine/hooks";
 import Footer from "../components/Footer";
+import {createContext, useState} from "react"
+
+export const changeDetailsContext = createContext({});
 
 function PassengerInfo() {
   const [adultCount, setAdultCount] = useLocalStorage({
@@ -14,7 +17,8 @@ function PassengerInfo() {
     key: "childrenCount",
     defaultValue: 0,
   });
-
+  
+  const [changeDetails, setChangeDetails] = useState([])
   return (
     <main className="">
       <Navbar />
@@ -33,6 +37,7 @@ function PassengerInfo() {
               </p>
             </div>
             <div className="">
+              <changeDetailsContext.Provider value={{changeDetails, setChangeDetails}}>
               {[...new Array(adultCount)].map((a, i) => (
                 <PassengerInfoForm
                   adultCount={adultCount}
@@ -40,6 +45,7 @@ function PassengerInfo() {
                   index={i + 1}
                 />
               ))}
+              </changeDetailsContext.Provider>
             </div>
           </section>
           <section className="">

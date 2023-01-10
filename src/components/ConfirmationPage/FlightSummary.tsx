@@ -1,3 +1,5 @@
+/* eslint-disable @next/next/no-img-element */
+
 function FlightSummary() {
   return (
     <main className="flex flex-row items-center justify-between mt-10">
