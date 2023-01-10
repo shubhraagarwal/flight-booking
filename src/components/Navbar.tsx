@@ -6,9 +6,11 @@ import { useState } from "react";
 function Navbar() {
   const [showNav, setShowNav] = useState(false);
   return (
-    <nav className="flex h-[120px] w-screen flex-row items-center justify-between pr-8 font-['Nunito_Sans'] lg:h-auto lg:px-0 lg:flex-col-reverse lg:justify-center">
+    <nav className="flex h-[120px] w-screen flex-row items-center justify-between pr-8 font-['Nunito_Sans'] lg:h-auto lg:flex-col-reverse lg:justify-center lg:px-0">
       <div className="lg:ml-8">
-        <img src="/images/logo.png" alt="Logo" />
+        <Link href={"/"}>
+          <img src="/images/logo.png" alt="Logo" />
+        </Link>
       </div>
       <div className="flex flex-col">
         <div className="hidden p-4 lg:flex lg:w-screen lg:justify-end">
@@ -26,7 +28,9 @@ function Navbar() {
           </svg>
         </div>
         <div
-          className={`flex h-auto flex-row items-center justify-end gap-5 pr-5 lg:z-10 lg:h-auto lg:w-screen lg:flex-col lg:justify-start lg:bg-white lg:${showNav? "flex":"hidden"}`}
+          className={`flex h-auto flex-row items-center justify-end gap-5 pr-5 lg:z-10 lg:h-auto lg:w-screen lg:flex-col lg:justify-start lg:bg-white lg:${
+            showNav ? "flex" : "hidden"
+          }`}
         >
           <span className="cursor-pointer">Home</span>
           <span className="cursor-pointer">Contact Us</span>
