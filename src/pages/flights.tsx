@@ -4,7 +4,7 @@ import FlightInfo from "@/components/FlightsPage/FlightInfo";
 import Footer from "@/components/Footer";
 import Link from "next/link";
 import { FlightData } from "types";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { trpc } from "@/utils/trpc";
 import { z } from "zod";
 import { flightSearchSchema } from "@/server/trpc/router/flights";
@@ -17,9 +17,17 @@ export default function FlightsPage() {
       ? null
       : JSON.parse(localStorage.getItem("flightData")!)
   : {});
+
   const { data, isLoading } = trpc.flights.search.useQuery(
     flightData as z.infer<typeof flightSearchSchema>
   );
+
+  useEffect(() => {
+    const lcData = localStorage.getItem("flightData");
+    if (lcData) {
+      setFlightData(JSON.parse(lcData))
+    }
+  }, []);
 
   // console.log({ flightData });
 
