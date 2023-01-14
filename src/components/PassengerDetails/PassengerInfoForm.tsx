@@ -8,34 +8,31 @@ function PassengerInfoForm({
   index: number;
   adultCount: number;
 }) {
-  const [firstName, setFirstName] = useState<string>("");
-  const [middleName, setMiddleName] = useState<string>("");
-  const [knowles, setKnowles] = useState<string>("");
-  const [sufflx, setSufflx] = useState<string>("");
-  const [dateOfBirth, setDateOfBirth] = useState<Date>();
-  const [email, setEmail] = useState<string>("");
-  const [idCardNumber, setIdCardNumber] = useState<number>();
-  const [address, setAddress] = useState<string>("");
-  const [mobileNumber, setMobileNumber] = useState<number>();
-
   const [emergencySame, setEmergencySame] = useState(false);
 
-  const [emergencyName, setEmergencyName] = useState<string>("");
-  const [emergencyKnowles, setEmergencyKnowles] = useState<string>("");
-  const [emergencyEmail, setEmergencyEmail] = useState<string>("");
-  const [emergencyMobileNumber, setEmergencyMobileNumber] = useState<number>();
-
-  const [PassengerDetailState, setPassengerDetailState] = useState<any[]>([]);
-  const changeDetailsState = useContext(changeDetailsContext)
-  const PassengerDetailsArray = [];
-
-  for (let i = 0; i < adultCount; i++) {
-    PassengerDetailsArray.push({
-      x: "",
-      y: "",
+  const [PassengerDetails, setPassengerDetails] = useState<any>({
+    firstName: "",
+    middleName: "",
+    knowles: "",
+    sufflx: "",
+    dateOfBirth: "",
+    email: "",
+    idCardNumber: "",
+    address: "",
+    mobileNumber: "",
+  });
+  
+  console.log(PassengerDetails.dateOfBirth.getMonth())
+  const [EmergencyPassengerDetails, setEmergencyPassengerDetails] =
+    useState<any>({
+      emergencyName: "",
+      emergencyKnowles: "",
+      emergencyEmail: "",
+      emergencyMobileNumber: "",
     });
-  }
-  console.log(...PassengerDetailsArray);
+
+  const changeDetailsState = useContext(changeDetailsContext);
+
   return (
     <form className="">
       <div className="flex flex-col gap-4">
@@ -48,9 +45,12 @@ function PassengerInfoForm({
             placeholder="First Name"
             name=""
             id=""
-            value={firstName}
+            value={PassengerDetails.firstName}
             onChange={(e) => {
-              setFirstName(e.target.value);
+              setPassengerDetails({
+                ...PassengerDetails,
+                firstName: e.target.value,
+              });
             }}
           />
           <input
@@ -59,9 +59,12 @@ function PassengerInfoForm({
             type="text"
             name=""
             id=""
-            value={middleName}
+            value={PassengerDetails.middleName}
             onChange={(e) => {
-              setMiddleName(e.target.value);
+              setPassengerDetails({
+                ...PassengerDetails,
+                middleName: e.target.value,
+              });
             }}
           />
           <input
@@ -70,9 +73,12 @@ function PassengerInfoForm({
             type="text"
             name=""
             id=""
-            value={knowles}
+            value={PassengerDetails.knowles}
             onChange={(e) => {
-              setKnowles(e.target.value);
+              setPassengerDetails({
+                ...PassengerDetails,
+                knowles: e.target.value,
+              });
             }}
           />
         </div>
@@ -83,9 +89,12 @@ function PassengerInfoForm({
             type="text"
             name=""
             id=""
-            value={sufflx}
+            value={PassengerDetails.sufflx}
             onChange={(e) => {
-              setSufflx(e.target.value);
+              setPassengerDetails({
+                ...PassengerDetails,
+                suffix: e.target.value,
+              });
             }}
           />
           <input
@@ -94,27 +103,40 @@ function PassengerInfoForm({
             type="date"
             name="Date of Birth"
             id=""
+            value={PassengerDetails.dateOfBirth}
+            onChange={(e) => {
+              setPassengerDetails({
+                ...PassengerDetails,
+                dateOfBirth: e.target.valueAsDate,
+              });
+            }}
           />
         </div>
         <div className="flex gap-2">
           <input
             placeholder="Enter your Email"
             className="rounded-md border-2 p-2 sm:w-[135px]"
-            type="text"
+            type="email"
             name=""
             id=""
-            value={email}
+            value={PassengerDetails.email}
             onChange={(e) => {
-              setEmail(e.target.value);
+              setPassengerDetails({
+                ...PassengerDetails,
+                email: e.target.value,
+              });
             }}
           />
           <input
             placeholder="ID-Card Number"
             className="rounded-md border-2 p-2 sm:w-[135px]"
             type="number"
-            value={idCardNumber}
+            value={PassengerDetails.idCardNumber}
             onChange={(e) => {
-              setIdCardNumber(e.target.valueAsNumber);
+              setPassengerDetails({
+                ...PassengerDetails,
+                idCardNumber: e.target.valueAsNumber,
+              });
             }}
           />
         </div>
@@ -125,52 +147,28 @@ function PassengerInfoForm({
             type="text"
             name=""
             id=""
-            value={address}
+            value={PassengerDetails.address}
             onChange={(e) => {
-              setAddress(e.target.value);
+              setPassengerDetails({
+                ...PassengerDetails,
+                address: e.target.value,
+              });
             }}
           />
           <input
             placeholder="Mobile Number"
             className="rounded-md border-2 p-2 sm:w-[135px]"
             type="number"
-            value={mobileNumber}
+            value={PassengerDetails.mobileNumber}
             onChange={(e) => {
-              setMobileNumber(e.target.valueAsNumber);
+              setPassengerDetails({
+                ...PassengerDetails,
+                mobileNumber: e.target.valueAsNumber,
+              });
             }}
           />
         </div>
       </div>
-
-      {PassengerDetailsArray.map((PassengerDetail, index) => (
-        <div key={index}>
-          <h3>Passenger {index + 2} Details</h3>
-          <input
-            type="text"
-            name=""
-            id=""
-            className="rounded-md border-2 p-2 sm:w-[135px]"
-            value={PassengerDetailState[index]?.x}
-            onChange={(e) => {
-              // PassengerDetail.x = e.target.value;
-              setPassengerDetailState([...PassengerDetailState, {x: e.target.value, y: ""}]);
-              console.log(PassengerDetailState);
-            }}
-          />
-          <input
-            type="text"
-            name=""
-            id=""
-            className="rounded-md border-2 p-2 sm:w-[135px]"
-            value={PassengerDetailState[index]?.y}
-            onChange={(e) => {
-              // PassengerDetail.y = e.target.value;
-              setPassengerDetailState([...PassengerDetailState, {x: "", y: e.target.value}]);
-              console.log(PassengerDetailState);
-            }}
-          />
-        </div>
-      ))}
 
       <div className="flex flex-col gap-4">
         <h2 className="mt-8 font-medium">Emergency contact information</h2>
@@ -194,9 +192,16 @@ function PassengerInfoForm({
             type="text"
             name=""
             id=""
-            value={emergencySame ? firstName : emergencyName}
+            value={
+              emergencySame
+                ? PassengerDetails.firstName
+                : EmergencyPassengerDetails.emergencyName
+            }
             onChange={(e) => {
-              setEmergencyName(e.target.value);
+              setEmergencyPassengerDetails({
+                ...EmergencyPassengerDetails,
+                emergencyName: e.target.value,
+              });
               setEmergencySame(false);
             }}
           />
@@ -206,9 +211,16 @@ function PassengerInfoForm({
             type="text"
             name=""
             id=""
-            value={emergencySame ? knowles : emergencyKnowles}
+            value={
+              emergencySame
+                ? PassengerDetails.knowles
+                : EmergencyPassengerDetails.emergencyKnowles
+            }
             onChange={(e) => {
-              setEmergencyKnowles(e.target.value);
+              setEmergencyPassengerDetails({
+                ...EmergencyPassengerDetails,
+                emergencyKnowles: e.target.value,
+              });
               setEmergencySame(false);
             }}
           />
@@ -220,18 +232,37 @@ function PassengerInfoForm({
             type="text"
             name=""
             id=""
-            value={emergencySame ? email : emergencyEmail}
+            value={
+              emergencySame
+                ? PassengerDetails.email
+                : EmergencyPassengerDetails.emergencyEmail
+            }
             onChange={(e) => {
-              setEmergencyEmail(e.target.value);
+              setEmergencyPassengerDetails({
+                ...EmergencyPassengerDetails,
+                emergencyEmail: e.target.value,
+              });
               setEmergencySame(false);
             }}
           />
           <input
             placeholder="Mobile Numbers"
             className="rounded-md border-2 p-2 sm:w-[135px]"
-            type="text"
+            type="number"
             name=""
             id=""
+            value={
+              emergencySame
+                ? PassengerDetails.mobileNumber
+                : EmergencyPassengerDetails.emergencyMobileNumber
+            }
+            onChange={(e) => {
+              setEmergencyPassengerDetails({
+                ...EmergencyPassengerDetails,
+                emergencyMobileNumber: e.target.valueAsNumber,
+              });
+              setEmergencySame(false);
+            }}
           />
         </div>
       </div>

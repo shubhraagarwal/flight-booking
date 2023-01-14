@@ -5,12 +5,21 @@ import { useContext } from "react";
 import { connectingFlightContext } from "@/pages/_app";
 import FlightsCart from "../FlightsCart";
 
-function FlightInfo({ flights, returnFlightIndex }: { flights: Flight[], returnFlightIndex:number }) {
+function FlightInfo({
+  flights,
+  returnFlightIndex,
+}: {
+  flights: Flight[];
+  returnFlightIndex: number;
+}) {
   console.log(flights);
   return (
     <main className="flex flex-row items-center gap-20">
       <section className="border-gray flex max-h-[50vh] w-[60vw] flex-col overflow-y-scroll rounded-lg border-2 border-solid p-4 sm:w-[90vw]">
-        <FlightInfoCard flights={flights} returnFlightIndex={returnFlightIndex}/>
+        <FlightInfoCard
+          flights={flights}
+          returnFlightIndex={returnFlightIndex}
+        />
       </section>
       <div className="sm:hidden">
         <FlightsCart />
@@ -19,7 +28,13 @@ function FlightInfo({ flights, returnFlightIndex }: { flights: Flight[], returnF
   );
 }
 
-function FlightInfoCard({ flights, returnFlightIndex }: { flights: Flight[], returnFlightIndex:number }) {
+function FlightInfoCard({
+  flights,
+  returnFlightIndex,
+}: {
+  flights: Flight[];
+  returnFlightIndex: number;
+}) {
   const connectingFlights = useContext(connectingFlightContext);
   return (
     <>
@@ -43,7 +58,9 @@ function FlightInfoCard({ flights, returnFlightIndex }: { flights: Flight[], ret
             </div>
             <div className="flex flex-col justify-around gap-4 text-left">
               <p>
-                {flight.itineraries[returnFlightIndex]?.segments[0]?.departure.at
+                {flight.itineraries[
+                  returnFlightIndex
+                ]?.segments[0]?.departure.at
                   .toString()
                   .slice(11, 16) +
                   " - " +
@@ -56,7 +73,10 @@ function FlightInfoCard({ flights, returnFlightIndex }: { flights: Flight[], ret
             </div>
             {flight.itineraries[returnFlightIndex] && (
               <div className="flex flex-col justify-around gap-4 text-right">
-                <p>{flight.itineraries[returnFlightIndex]!.segments.length - 1} stop</p>
+                <p>
+                  {flight.itineraries[returnFlightIndex]!.segments.length - 1}{" "}
+                  stop
+                </p>
               </div>
             )}
             <div className="flex flex-col justify-around gap-4 text-right">

@@ -72,7 +72,7 @@ function FormInput() {
 
             <div className="flex">
               <DatePicker
-                dateFormat="yyyy/MM/dd"
+                dateFormat="dd/MM/yyyy"
                 className="w-[135px] border-r-2 p-2 focus:outline-0"
                 minDate={startDate}
                 placeholderText="Departure date"
@@ -80,7 +80,7 @@ function FormInput() {
                 onChange={(date) => setDepartureDate(date || new Date())}
               />
               <DatePicker
-                dateFormat="yyyy/MM/dd"
+                dateFormat="dd/MM/yyyy"
                 minDate={!departureDate ? startDate : departureDate}
                 className="w-[135px] border-r-2 p-2 focus:outline-0"
                 placeholderText="Return date"
