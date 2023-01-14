@@ -1,5 +1,6 @@
 import { useState, useContext } from "react";
 import { changeDetailsContext } from "@/pages/passengerInfo";
+import { DatePicker } from '@mantine/dates';
 
 function PassengerInfoForm({
   index,
@@ -22,7 +23,8 @@ function PassengerInfoForm({
     mobileNumber: "",
   });
   
-  console.log(PassengerDetails.dateOfBirth.getMonth())
+  console.log(new Date(PassengerDetails.dateOfBirth))
+
   const [EmergencyPassengerDetails, setEmergencyPassengerDetails] =
     useState<any>({
       emergencyName: "",
@@ -97,17 +99,16 @@ function PassengerInfoForm({
               });
             }}
           />
-          <input
-            className="rounded-md border-2 p-2 sm:w-[135px]"
-            placeholder="Date of Birth"
-            type="date"
+          <DatePicker
+            className="sm:w-[135px]"
             name="Date of Birth"
+            placeholder="Date of Birth"
             id=""
             value={PassengerDetails.dateOfBirth}
-            onChange={(e) => {
+            onChange={(DOB) => {
               setPassengerDetails({
                 ...PassengerDetails,
-                dateOfBirth: e.target.valueAsDate,
+                dateOfBirth: DOB,
               });
             }}
           />

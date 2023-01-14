@@ -1,10 +1,17 @@
 import { useRouter } from "next/router";
 import { useState } from "react";
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
+import { DatePicker } from "@mantine/dates";
 import { FlightData } from "types";
 import AirportSearch from "./AirportSearch";
 import { flightSearchSchema } from "./FormValidation";
+import { createStyles, CSSObject } from '@mantine/core';
+
+//put styles here for creating em
+const useStyles = createStyles((theme, _params, getRef) => ({
+  wrapper: {
+    // outline: "1px solid black"
+  }
+}));
 
 function FormInput() {
   const router = useRouter();
@@ -47,6 +54,20 @@ function FormInput() {
     new Date().getDate()
   );
 
+//for creating style
+const {classes} = useStyles()
+
+
+//for sx prop
+const styles: CSSObject = {
+  border: '1px solid transparent',
+  color: '#999',
+
+  '&:hover': {
+    backgroundColor: '#eee',
+  },
+}
+
   return (
     <section
       className="flex h-screen w-screen flex-col items-center
@@ -60,7 +81,7 @@ function FormInput() {
           </h1>
         </div>
         <div className="flex items-center justify-center rounded-md bg-[#041950] p-10 xl:w-[96vw] md:bg-transparent">
-          <div className=" flex items-center justify-center rounded-md bg-white py-[1px] xl:flex-wrap xl:justify-center xl:gap-2 xl:bg-transparent">
+          <div className=" flex items-center justify-center gap-2 rounded-md bg-white py-[1px] xl:flex-wrap xl:justify-center xl:gap-2 xl:bg-transparent">
             <AirportSearch
               placeholder="From Where?"
               setLocation={setFromLocation}
@@ -70,21 +91,19 @@ function FormInput() {
               setLocation={setToLocation}
             />
 
-            <div className="flex">
+            <div className="flex gap-2">
               <DatePicker
-                dateFormat="dd/MM/yyyy"
-                className="w-[135px] border-r-2 p-2 focus:outline-0"
+                className={classes.wrapper}
                 minDate={startDate}
-                placeholderText="Departure date"
-                selected={departureDate}
+                placeholder="Departure date"
+                value={departureDate}
                 onChange={(date) => setDepartureDate(date || new Date())}
               />
               <DatePicker
-                dateFormat="dd/MM/yyyy"
                 minDate={!departureDate ? startDate : departureDate}
-                className="w-[135px] border-r-2 p-2 focus:outline-0"
-                placeholderText="Return date"
-                selected={returnDate}
+                className=" focus:outline-0"
+                placeholder="Return date"
+                value={returnDate}
                 onChange={(date) => setReturnDate(date || new Date())}
               />
             </div>
