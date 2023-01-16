@@ -6,7 +6,7 @@ import { useState } from "react";
 function Navbar() {
   const [showNav, setShowNav] = useState(false);
   return (
-    <nav className="flex h-[120px] w-screen flex-row items-center justify-between pr-8 font-['Nunito_Sans'] lg:h-auto lg:px-0 lg:flex-col-reverse lg:justify-center">
+    <nav className="flex h-[120px] w-screen flex-row items-center justify-between pr-8 font-['Nunito_Sans'] lg:h-auto lg:flex-col-reverse lg:justify-center lg:px-0">
       <div className="lg:ml-8">
         <img src="/images/logo.png" alt="Logo" />
       </div>
@@ -26,11 +26,19 @@ function Navbar() {
           </svg>
         </div>
         <div
-          className={`flex h-auto flex-row items-center justify-end gap-5 pr-5 lg:z-10 lg:h-auto lg:w-screen lg:flex-col lg:justify-start lg:bg-white lg:${showNav? "flex":"hidden"}`}
+          className={`flex h-auto flex-row items-center justify-end gap-5 pr-5 lg:z-10 lg:h-auto lg:w-screen lg:flex-col lg:justify-start lg:bg-white lg:${
+            showNav ? "flex" : "hidden"
+          }`}
         >
-          <span className="cursor-pointer">Home</span>
-          <span className="cursor-pointer">Contact Us</span>
-          <span className="cursor-pointer">About Us</span>
+          <Link href="/">
+            <span className="cursor-pointer">Home</span>
+          </Link>
+          <Link href="mailto:care@rushmyflight.com">
+            <span className="cursor-pointer">Contact Us</span>
+          </Link>
+          <Link href="/aboutUs">
+            <span className="cursor-pointer">About Us</span>
+          </Link>
           <Link href="/myBookings">
             <button className="rounded bg-[#007CFF] p-4 text-white">
               My Bookings
