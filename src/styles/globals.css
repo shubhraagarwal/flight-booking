@@ -1,17 +1,92 @@
-@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@200;300;400;600;700;800;900&family=Playfair+Display:wght@400;500;600;700;800;900&family=Roboto:wght@400;500;700&family=Sanchez&family=Ubuntu:wght@300;400;500;700&family=Work+Sans:wght@100;200;300;400&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@200;300;400;600;700;800;900&family=Playfair+Display:wght@400;500;600;700;800;900&family=Roboto:wght@400;500;700&family=Sanchez&family=Ubuntu:wght@300;400;500;700&family=Work+Sans:wght@100;200;300;400&display=swap");
 
-body{
-    overflow-x: hidden;
+body {
+  overflow-x: hidden;
 }
 
-h3, p{
-    color: #6E7491;
+h3,
+p {
+  color: #6e7491;
 }
 
-button{
-    font-family: "Nunito Sans", sans-serif;
+button {
+  font-family: "Nunito Sans", sans-serif;
 }
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.common_content {
+  width: 100%;
+  display: inline-block;
+  padding: 15px;
+}
+
+.para_content {
+  width: 100%;
+  float: left;
+  padding: 15px;
+  border: 1px solid #ccc;
+  box-shadow: 2px 2px 2px #ccc;
+  margin-bottom: 15px;
+}
+.para_content h5 {
+  font-size: 16px;
+  color: #000;
+  font-weight: bold;
+}
+.para_content ol {
+  padding-left: 15px;
+}
+.common_page_con {
+  width: 100%;
+  float: left;
+  margin-top: 30px;
+  padding: 0;
+}
+.common_page_con p {
+  font-size: 14px;
+  color: #000;
+  font-weight: 400;
+  text-transform: none;
+  line-height: 23px;
+  text-align: justify;
+}
+
+.common_page_con ul {
+  padding-left: 30px;
+  margin: 10px 0;
+}
+
+.common_page_con ul li {
+  font-size: 14px;
+}
+
+.common_page_con h2 {
+  font-size: 20px;
+  color: #fff;
+  background: #007cff;
+  margin: 0px 0 6px 0;
+  padding: 4px 8px;
+  box-shadow: 2px 3px 2px #ccc;
+  display: inline-block;
+  width: 100%;
+  border-radius: 6px;
+}
+
+.common_page_con h1 {
+  font-size: 25px;
+  font-weight: bold;
+  margin: 15px 0 8px 0;
+}
+
+.common_page_con h3 {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.common_page_con a {
+  color: #000;
+  font-weight: bold;
+}
