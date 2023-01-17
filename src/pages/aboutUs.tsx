@@ -54,7 +54,7 @@ function aboutUs() {
             </div>
           </div>
         </div>
-        <div className="common_content marbuttom20">
+        {/* <div className="common_content marbuttom20">
           <div className="flex gap-4">
             <div className="col-md-3 text-center">
               <div className="about_small about_dest">
@@ -79,7 +79,7 @@ function aboutUs() {
               </div>
             </div>
           </div>
-        </div>
+        </div> */}
         <div className="common_content marbuttom20">
           <div className="flex gap-4">
             <div className="col-md-9">
