@@ -4,11 +4,11 @@ import React from "react";
 
 function aboutUs() {
   return (
-    <div>
+    <div className="common_page_con">
       <Navbar />
-      <div className="container">
+      <div className="container px-10">
         <div className="common_content marbuttom20">
-          <div className="row">
+          <div className="flex gap-4">
             <div className="col-md-3 text-center">
               <div className="about_small">
                 <img className="" src="/images/logo.png" alt="logo" />
@@ -28,7 +28,7 @@ function aboutUs() {
           </div>
         </div>
         <div className="common_content marbuttom20">
-          <div className="row">
+          <div className="flex gap-4">
             <div className="col-md-3 about_mob text-center">
               <div className="about_small">
                 <img src="/images/iata_color.png" alt="iata" />
@@ -55,7 +55,7 @@ function aboutUs() {
           </div>
         </div>
         <div className="common_content marbuttom20">
-          <div className="row">
+          <div className="flex gap-4">
             <div className="col-md-3 text-center">
               <div className="about_small about_dest">
                 <img src="/images/pci_dss_color.png" alt="pci" />
@@ -81,7 +81,7 @@ function aboutUs() {
           </div>
         </div>
         <div className="common_content marbuttom20">
-          <div className="row">
+          <div className="flex gap-4">
             <div className="col-md-9">
               <h2>Mission, Vision, and Values</h2>
               <p>
@@ -105,7 +105,7 @@ function aboutUs() {
           </div>
         </div>
         <div className="common_content marbuttom20">
-          <div className="row">
+          <div className="flex gap-4">
             <div className="col-md-3 about_dest text-center">
               <div className="about_small">
                 <img className="" src="/images/Cached.png" alt="cached" />
@@ -132,7 +132,7 @@ function aboutUs() {
           </div>
         </div>
         <div className="common_content marbuttom20">
-          <div className="row">
+          <div className="flex gap-4">
             <div className="col-md-9">
               <h2>Cutting Edge Technology</h2>
               <p>

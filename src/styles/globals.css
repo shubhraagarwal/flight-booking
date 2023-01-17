@@ -17,6 +17,8 @@ button {
 @tailwind components;
 @tailwind utilities;
 
+/* The following styles are for the About Us, Privacy Policy and Terms and Conditions pages */
+
 .common_content {
   width: 100%;
   display: inline-block;
@@ -89,4 +91,23 @@ button {
 .common_page_con a {
   color: #000;
   font-weight: bold;
+}
+
+.marbuttom20 {
+  margin-bottom: 20px;
+}
+
+.about_small {
+  width: 100%;
+  display: inline-block;
+  border: 1px solid #ccc;
+  padding: 20px 15px;
+  box-shadow: 2px 3px 2px #ccc;
+}
+
+.about_small img {
+  width: 80%;
+}
+.about_mob {
+  display: none;
 }
