@@ -3,10 +3,10 @@ import { changeDetailsContext } from "@/pages/passengerInfo";
 import { DatePicker } from '@mantine/dates';
 
 function PassengerInfoForm({
-  index,
+  passengerNumber,
   adultCount,
 }: {
-  index: number;
+  passengerNumber: number;
   adultCount: number;
 }) {
   const [emergencySame, setEmergencySame] = useState(false);
@@ -22,8 +22,6 @@ function PassengerInfoForm({
     address: "",
     mobileNumber: "",
   });
-  
-  console.log(new Date(PassengerDetails.dateOfBirth))
 
   const [EmergencyPassengerDetails, setEmergencyPassengerDetails] =
     useState<any>({
@@ -38,7 +36,7 @@ function PassengerInfoForm({
   return (
     <form className="">
       <div className="flex flex-col gap-4">
-        <h2 className="font-medium">Passenger {index} Adult</h2>
+        <h2 className="font-medium">Passenger {passengerNumber} Adult</h2>
         <div className="flex gap-2 lg:flex-wrap">
           {}
           <input
@@ -184,7 +182,7 @@ function PassengerInfoForm({
               setEmergencySame(!emergencySame);
             }}
           />
-          Same as Passenger {index}
+          Same as Passenger {passengerNumber}
         </label>
         <div className="flex gap-2">
           <input

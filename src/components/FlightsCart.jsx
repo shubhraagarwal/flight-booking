@@ -31,13 +31,13 @@ function FlightsCart() {
 
   return (
     <main className="rounded-md border-2 border-b-0">
-      {connectingFlightData ? (
+      {connectingFlightData.length > 1 ? (
         connectingFlightData.map((flight, index) => (
           <div
             key={index}
-            className="flex w-[25vw] flex-col justify-center gap-4 lg:w-fit lg:px-2"
+            className="flex w-auto flex-col justify-center gap-4 lg:w-fit lg:px-2"
           >
-            <div className="flex flex-row items-center justify-around rounded-lg py-4 lg:gap-4 lg:px-8">
+            <div className="flex flex-row items-center justify-between rounded-lg py-4 px-64 lg:gap-4 lg:px-8">
               <div>
                 <img src="/images/flightLogo.png" alt="" />
                 <p>FIG4312</p>
@@ -68,6 +68,8 @@ function FlightsCart() {
             <hr />
           </div>
         ))
+      ) : connectingFlightData.length === 1 ? (
+        <div className="text-xl p-4 text-center text-[#6E7491]"> No stoppages </div>
       ) : (
         <div></div>
       )}

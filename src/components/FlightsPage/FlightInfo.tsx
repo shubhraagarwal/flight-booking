@@ -1,9 +1,10 @@
 /* eslint-disable @next/next/no-img-element */
 
 import { Flight } from "types";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { connectingFlightContext } from "@/pages/_app";
 import FlightsCart from "../FlightsCart";
+import { setServers } from "dns";
 
 function FlightInfo({
   flights,
@@ -21,9 +22,7 @@ function FlightInfo({
           returnFlightIndex={returnFlightIndex}
         />
       </section>
-      <div className="sm:hidden">
-        <FlightsCart />
-      </div>
+      <div className="sm:hidden"></div>
     </main>
   );
 }
@@ -36,10 +35,13 @@ function FlightInfoCard({
   returnFlightIndex: number;
 }) {
   const connectingFlights = useContext(connectingFlightContext);
+  const [ConnectingIndex, setConnectingIndex] = useState<number>();
+
   return (
     <>
       {flights?.length !== 0 ? (
-        flights?.map((flight) => (
+        flights?.map((flight, index) => (
+          <section key={flight.id} onClick={()=>{setConnectingIndex(index);}}>
           <div
             onClick={() => {
               connectingFlights.setconnectingFlightData(
@@ -47,7 +49,7 @@ function FlightInfoCard({
               );
             }}
             key={flight.id}
-            className="flex flex-row items-center justify-between py-4"
+            className="cursor-pointer flex flex-row items-center justify-between py-4 mb-4"
           >
             <div className="">
               <img src="/images/flightLogo.png" alt="" />
@@ -83,8 +85,10 @@ function FlightInfoCard({
               <p>${flight.travelerPricings[0]?.price.total}</p>{" "}
               <p>Single trip</p>
             </div>
-            <hr />
           </div>
+          {ConnectingIndex == index ? <FlightsCart/> :""}
+          <hr />
+          </section>
         ))
       ) : (
         <div>

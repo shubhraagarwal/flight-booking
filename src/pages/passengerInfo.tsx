@@ -42,7 +42,7 @@ function PassengerInfo() {
                 <PassengerInfoForm
                   adultCount={adultCount}
                   key={a}
-                  index={i + 1}
+                  passengerNumber={i + 1}
                 />
               ))}
               </changeDetailsContext.Provider>

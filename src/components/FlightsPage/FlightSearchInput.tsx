@@ -65,13 +65,6 @@ function FlightSearchInput({
     localStorage.setItem("flightData", JSON.stringify(flightData));
   }, [flightData]);
 
-  // function tripType(e: ChangeEvent<HTMLInputElement>) {
-  //   if (e.target.value === "roundTripType") {
-  //     setRoundTrip(true);
-  //   } else if (e.target.value === "oneWayTripType") {
-  //     setRoundTrip(false);
-  //   }
-  // }
   const startDate = new Date(
     new Date().getFullYear(),
     new Date().getMonth(),
