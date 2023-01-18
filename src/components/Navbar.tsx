@@ -31,9 +31,13 @@ function Navbar() {
           }`}
         >
           <Link href="/">
-            <span className="cursor-pointer">Home</span>
+            <span className="cursor-pointer">Book flights</span>
           </Link>
-          <Link href="mailto:care@rushmyflight.com">
+
+          <Link href="/">
+            <span className="cursor-pointer">Book hotels</span>
+          </Link>
+          <Link href="/contactUs">
             <span className="cursor-pointer">Contact Us</span>
           </Link>
           <Link href="/aboutUs">
