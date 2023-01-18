@@ -8,19 +8,32 @@ function ContactUs() {
       <Navbar />
       <div className="max-w-screen-xl mx-auto mt-24 grid grid-cols-1 gap-8 rounded-lg px-8 py-16 text-gray-900 shadow-lg xl:px-32 lg:px-16 md:grid-cols-2 md:px-12">
         <div className="flex justify-between">
-          <div>
-            <h2 className="text-4xl font-bold leading-tight lg:text-5xl">
-              Lets talk about everything!
-            </h2>
-            <div className="mt-8 text-gray-700">
-              {/* Send us an email or give us a call. */}
-              Send us an email at{" "}
-              <a href="mailto:care@rushmyflight.com" className="text-blue-500">
-                care@rushmyflight.com
-              </a>
+          <div className="flex gap-5 ">
+            <div>
+              <h2 className="text-4xl font-bold leading-tight lg:text-5xl">
+                Lets talk about everything!
+              </h2>
+              <div className="mt-8 text-gray-700">
+                {/* Send us an email or give us a call. */}
+                <p>
+                  Send us an email at{" "}
+                  <a
+                    href="mailto:care@rushmyflight.com"
+                    className="text-blue-500"
+                  >
+                    care@rushmyflight.com
+                  </a>
+                </p>
+              </div>
             </div>
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3070.582086735629!2d-75.63067978426871!3d39.68161447945752!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c7016447ed938b%3A0xefbfea639189e515!2s257%20Old%20Churchmans%20Rd%2C%20New%20Castle%2C%20DE%2019720%2C%20USA!5e0!3m2!1sen!2sin!4v1674055532932!5m2!1sen!2sin"
+              width="600"
+              height="450"
+              loading="lazy"
+            ></iframe>
           </div>
-          <div className="text-center">
+          {/* <div className="text-center">
             <svg
               className="w-full"
               xmlns="http://www.w3.org/2000/svg"
@@ -974,7 +987,7 @@ function ContactUs() {
                 fill="#fbbebe"
               />
             </svg>
-          </div>
+          </div> */}
         </div>
       </div>
 
