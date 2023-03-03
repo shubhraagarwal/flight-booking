@@ -24,6 +24,13 @@ function ContactUs() {
                     care@rushmyflight.com
                   </a>
                 </p>
+                <p>OR</p>
+                <p>
+                  Give us a call at :
+                  <a href="tel:+1(888)889-2208" className="text-blue-500">
+                    +1 (888) 889-2208
+                  </a>
+                </p>
               </div>
             </div>
             <iframe
