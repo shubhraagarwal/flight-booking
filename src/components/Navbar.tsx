@@ -1,5 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 
+import { Divider } from "@mantine/core";
 import Link from "next/link";
 import { useState } from "react";
 
@@ -48,6 +49,18 @@ function Navbar() {
               My Bookings
             </button>
           </Link>
+          <Divider orientation="vertical" size="md" />
+          <div className="flex gap-3">
+            <div>
+              <p>Call us 24/7 for our best deals</p>
+              <Link href="tel:+1(888)889-2208">+1(888)889-2208</Link>
+            </div>
+            <div className="avatar">
+              <div className="w-16 rounded-full">
+                <img src="https://www.cheapflightsfares.com/resources/assets/call-component-header.gif" />
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </nav>

@@ -17,6 +17,9 @@ function Footer() {
           <Link href="/termsandconditions">
             <span>Terms & Conditions</span>
           </Link>
+          <Link href="tel:+1(888)889-2208" className="text-white">
+            <span>Call Us on +1(888)889-2208 for the best deals</span>
+          </Link>
         </div>
       </div>
     </footer>
